@@ -1,3 +1,3 @@
 export const home = {
-  hello: "你好"
+  newArrival: "新品发售"
 };

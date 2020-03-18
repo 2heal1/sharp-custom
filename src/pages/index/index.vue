@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="indexView">
     index
     <new-goods />
   </div>
@@ -12,3 +12,9 @@ export default {
   components: { NewGoods }
 };
 </script>
+<style lang="less">
+.indexView {
+  display: flex;
+  width: 100%;
+}
+</style>
