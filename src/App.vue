@@ -36,9 +36,27 @@
 <script>
 export default {
   name: "App",
+  computed: {
+    navigationClass: {
+      get: function name() {
+        let pages = this.$route.path.split("/")[1];
+        return Object.assign({}, this.originNavigationClass, {
+          [pages + "Class"]:
+            this.originNavigationClass[pages + "Class"] + "-fill"
+        });
+      },
+      set: function name() {
+        let pages = this.$route.path.split("/")[1];
+        this.navigationClass = Object.assign({}, this.originNavigationClass, {
+          [pages + "Class"]:
+            this.originNavigationClass[pages + "Class"] + "-fill"
+        });
+      }
+    }
+  },
   data() {
     return {
-      navigationClass: {
+      navigationClass1: {
         iconfont: "iconfont",
         homeClass: "icon-home",
         classificationClass: "icon-all",
@@ -56,17 +74,8 @@ export default {
   },
   methods: {
     jumpToOtherPages(pages) {
-      this.navigationClass = Object.assign({}, this.originNavigationClass, {
-        [pages + "Class"]: this.originNavigationClass[pages + "Class"] + "-fill"
-      });
       this.$router.push(pages);
     }
-  },
-  mounted() {
-    let pages = this.$route.name.toLowerCase();
-    this.navigationClass = Object.assign({}, this.originNavigationClass, {
-      [pages + "Class"]: this.originNavigationClass[pages + "Class"] + "-fill"
-    });
   }
 };
 </script>
