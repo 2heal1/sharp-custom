@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueI18n from "vue-i18n";
+import "@/assets/icon/iconfont.css";
 
 //用于适配rem
 import "lib-flexible/flexible";

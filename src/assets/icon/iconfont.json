@@ -1,0 +1,51 @@
+{
+  "id": "1697738",
+  "name": "sapc",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11474219",
+      "name": "all",
+      "font_class": "all",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
+      "icon_id": "11481287",
+      "name": "all-fill",
+      "font_class": "all-fill",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "11488003",
+      "name": "cart-Empty",
+      "font_class": "cart-Empty",
+      "unicode": "e747",
+      "unicode_decimal": 59207
+    },
+    {
+      "icon_id": "11488233",
+      "name": "cart-Empty-fill",
+      "font_class": "cart-Empty-fill",
+      "unicode": "e77a",
+      "unicode_decimal": 59258
+    },
+    {
+      "icon_id": "11674090",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e7a7",
+      "unicode_decimal": 59303
+    },
+    {
+      "icon_id": "11674925",
+      "name": "home-fill",
+      "font_class": "home-fill",
+      "unicode": "e7ae",
+      "unicode_decimal": 59310
+    }
+  ]
+}
