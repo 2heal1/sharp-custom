@@ -6,8 +6,33 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "index",
-    component: () => import(/* webpackChunkName: "index" */ "@/pages/index")
+    redirect: "/home"
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/Index/Index")
+  },
+  {
+    path: "/classification",
+    name: "Classification",
+    component: () =>
+      import(
+        /* webpackChunkName: "index" */ "@/pages/Classification/Classification"
+      )
+  },
+  {
+    path: "/shoppingCar",
+    name: "ShoppingCar",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/ShoppingCar/ShoppingCar")
+  },
+  {
+    path: "/personal",
+    name: "Personal",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/Personal/Personal")
   }
 ];
 

@@ -5,13 +5,15 @@ import "@/assets/icon/iconfont.css";
 
 //用于适配rem
 import "lib-flexible/flexible";
-import { NumberKeyboard, Button, Field } from "vant";
+import { NumberKeyboard, Button, Field, Col, Row } from "vant";
 import router from "./router";
 
 Vue.use(VueI18n);
 Vue.use(NumberKeyboard);
 Vue.use(Button);
 Vue.use(Field);
+Vue.use(Col);
+Vue.use(Row);
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({
