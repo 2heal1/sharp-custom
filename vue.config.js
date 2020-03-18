@@ -15,8 +15,22 @@ module.exports = {
       }
     }
   },
+
   chainWebpack: config => {
     // 自定义路径
     config.resolve.alias.set("@", path.join(__dirname, "src"));
+  },
+
+  pluginOptions: {
+    i18n: {
+      locale: 'zh',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false
+    },
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: []
+    }
   }
 };
