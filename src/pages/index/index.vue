@@ -1,7 +1,9 @@
 <template>
   <div class="indexView">
-    index
     <new-goods />
+    <div class="title">
+      <div>{{ $t("sapc.home.newArrival") }}</div>
+    </div>
   </div>
 </template>
 
@@ -16,5 +18,14 @@ export default {
 .indexView {
   display: flex;
   width: 100%;
+  .title {
+    font-size: 32px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.88);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
 }
 </style>

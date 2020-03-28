@@ -9,6 +9,12 @@ const routes = [
     redirect: "/home"
   },
   {
+    path: "/loginRegist",
+    name: "LoginRegist",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/LoginRegist/index")
+  },
+  {
     path: "/home",
     name: "Home",
     component: () =>

@@ -1,5 +1,18 @@
 var path = require("path");
 module.exports = {
+  devServer: {
+    port: 8080,
+    proxy: {
+      api: {
+        target: "http://192.168.3.14:3000/api",
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          "^/api": "/"
+        }
+      }
+    }
+  },
   css: {
     loaderOptions: {
       postcss: {
@@ -23,13 +36,13 @@ module.exports = {
 
   pluginOptions: {
     i18n: {
-      locale: 'zh',
-      fallbackLocale: 'en',
-      localeDir: 'locales',
+      locale: "zh",
+      fallbackLocale: "en",
+      localeDir: "locales",
       enableInSFC: false
     },
-    'style-resources-loader': {
-      preProcessor: 'less',
+    "style-resources-loader": {
+      preProcessor: "less",
       patterns: []
     }
   }

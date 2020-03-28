@@ -1,12 +1,24 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueI18n from "vue-i18n";
+import store from "./store/index";
+import router from "./router";
+
 import "@/assets/icon/iconfont.css";
 
 //用于适配rem
 import "lib-flexible/flexible";
-import { NumberKeyboard, Button, Field, Col, Row } from "vant";
-import router from "./router";
+import {
+  NumberKeyboard,
+  Button,
+  Field,
+  Col,
+  Row,
+  Tab,
+  Tabs,
+  Form,
+  Toast
+} from "vant";
 
 Vue.use(VueI18n);
 Vue.use(NumberKeyboard);
@@ -14,6 +26,10 @@ Vue.use(Button);
 Vue.use(Field);
 Vue.use(Col);
 Vue.use(Row);
+Vue.use(Tab);
+Vue.use(Tabs);
+Vue.use(Toast);
+Vue.use(Form);
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({
@@ -27,5 +43,6 @@ const i18n = new VueI18n({
 new Vue({
   router,
   i18n,
+  store,
   render: h => h(App)
 }).$mount("#app");
