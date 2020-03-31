@@ -1,32 +1,41 @@
 <template>
-  <div id="app" class="indexView">
+  <div
+    id="app"
+    class="indexView"
+  >
     <div class="content">
       <router-view />
     </div>
     <div class="bottom">
-      <div class="navigation" @click="jumpToOtherPages('home')">
+      <div
+        class="navigation"
+        @click="jumpToOtherPages('home')"
+      >
         <i :class="[navigationClass.iconfont, navigationClass.homeClass]"></i>
         <div>{{ $t("sapc.common.home") }}</div>
       </div>
-      <div class="navigation" @click="jumpToOtherPages('classification')">
-        <i
-          :class="[
+      <div
+        class="navigation"
+        @click="jumpToOtherPages('classification')"
+      >
+        <i :class="[
             navigationClass.iconfont,
             navigationClass.classificationClass
-          ]"
-        ></i>
+          ]"></i>
         <div>{{ $t("sapc.common.classification") }}</div>
       </div>
-      <div class="navigation" @click="jumpToOtherPages('shoppingCar')">
-        <i
-          :class="[navigationClass.iconfont, navigationClass.shoppingCarClass]"
-        ></i>
+      <div
+        class="navigation"
+        @click="jumpToOtherPages('shoppingCar')"
+      >
+        <i :class="[navigationClass.iconfont, navigationClass.shoppingCarClass]"></i>
         <div>{{ $t("sapc.common.shoppingCar") }}</div>
       </div>
-      <div class="navigation" @click="jumpToOtherPages('personal')">
-        <i
-          :class="[navigationClass.iconfont, navigationClass.personalClass]"
-        ></i>
+      <div
+        class="navigation"
+        @click="jumpToOtherPages('personal')"
+      >
+        <i :class="[navigationClass.iconfont, navigationClass.personalClass]"></i>
         <div>{{ $t("sapc.common.personal") }}</div>
       </div>
     </div>
@@ -38,14 +47,14 @@ export default {
   name: "App",
   computed: {
     navigationClass: {
-      get: function name() {
+      get: function name () {
         let pages = this.$route.path.split("/")[1];
         return Object.assign({}, this.originNavigationClass, {
           [pages + "Class"]:
             this.originNavigationClass[pages + "Class"] + "-fill"
         });
       },
-      set: function name() {
+      set: function name () {
         let pages = this.$route.path.split("/")[1];
         this.navigationClass = Object.assign({}, this.originNavigationClass, {
           [pages + "Class"]:
@@ -54,7 +63,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       navigationClass1: {
         iconfont: "iconfont",
@@ -73,7 +82,7 @@ export default {
     };
   },
   methods: {
-    jumpToOtherPages(pages) {
+    jumpToOtherPages (pages) {
       this.$router.push(pages);
     }
   }

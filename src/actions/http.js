@@ -1,7 +1,5 @@
-import qs from "qs";
 // import Vue from 'vue'
 import axios from "axios";
-import i18n from "@/i18n";
 import store from "@/store/index";
 import router from "@/router/index";
 const http = axios.create({
@@ -10,28 +8,11 @@ const http = axios.create({
     "Content-Type": "application/json;charset=UTF-8",
     post: {
       "Content-Type": "application/x-www-form-urlencode;charset=UTF-8"
-    },
-    "X-Requested-with": XMLHttpRequest
+    }
+    // "X-Requested-with": XMLHttpRequest   为什么设置后 safari就无法获取接口
   },
-  timeout: 30000,
-  paramsSerializer(params) {
-    params.time = Date.now();
-    return qs.stringify(params, { arrayFormat: "brackets" });
-  }
+  timeout: 30000
 });
-export const getMsg = (msg, data) => {
-  if (/^duoyuyan\.*/.test(msg)) {
-    const value = i18n.t(msg);
-    return value && value.match(/\{.*\}/g)
-      ? i18n.t(
-          msg,
-          data.map(item => i18n.t(item))
-        )
-      : value;
-  } else {
-    return msg;
-  }
-};
 
 // POST传参序列化（添加请求拦截器）
 http.interceptors.request.use(

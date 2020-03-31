@@ -3,6 +3,7 @@ import App from "./App.vue";
 import VueI18n from "vue-i18n";
 import store from "./store/index";
 import router from "./router";
+import loadingImg from "@/assets/loading.jpeg";
 
 import "@/assets/icon/iconfont.css";
 
@@ -17,7 +18,11 @@ import {
   Tab,
   Tabs,
   Form,
-  Toast
+  Toast,
+  Swipe,
+  SwipeItem,
+  Tag,
+  Lazyload
 } from "vant";
 
 Vue.use(VueI18n);
@@ -30,6 +35,12 @@ Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Toast);
 Vue.use(Form);
+Vue.use(Swipe);
+Vue.use(Tag);
+Vue.use(SwipeItem);
+Vue.use(Lazyload, {
+  loading: loadingImg
+});
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({
