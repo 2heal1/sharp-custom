@@ -8,98 +8,46 @@
 </template>
 
 <script>
-import ProductList from '@/components/ProductList'
+import ProductList from "@/components/ProductList";
+import homeHttp from "@/actions/home";
+
 export default {
   name: "DiscountProducts",
   components: { ProductList },
-  data () {
+  data() {
     return {
-      discountList: [
-        {
-          imgUrl: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2055165149,2704025303&fm=26&gp=0.jpg',
-          title: '折扣商品1',
-          dec: '折扣商品描述',
-          tag: [
-            {
-              type: 'primary',
-              label: '满999-100'
-            },
-            {
-              type: 'success',
-              label: '满999-100'
-            },
-            {
-              type: 'danger',
-              label: '满999-100'
-            },
-          ],
-          saleVolume: '2.1'
-        },
-        {
-          imgUrl: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2055165149,2704025303&fm=26&gp=0.jpg',
-          title: '折扣商品1',
-          dec: '折扣商品描述',
-          tag: [
-            {
-              type: 'primary',
-              label: '满999-100'
-            },
-            {
-              type: 'success',
-              label: '满999-100'
-            },
-            {
-              type: 'danger',
-              label: '满999-100'
-            },
-          ],
-          saleVolume: '2.1'
-        },
-        {
-          imgUrl: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2055165149,2704025303&fm=26&gp=0.jpg',
-          title: '折扣商品1',
-          dec: '折扣商品描述',
-          tag: [
-            {
-              type: 'primary',
-              label: '满999-100'
-            },
-            {
-              type: 'success',
-              label: '满999-100'
-            },
-            {
-              type: 'danger',
-              label: '满999-100'
-            },
-          ],
-          saleVolume: '2.1'
-        },
-        {
-          imgUrl: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2055165149,2704025303&fm=26&gp=0.jpg',
-          title: '折扣商品1',
-          dec: '折扣商品描述',
-          tag: [
-            {
-              type: 'primary',
-              label: '满999-100'
-            },
-            {
-              type: 'success',
-              label: '满999-100'
-            },
-            {
-              type: 'danger',
-              label: '满999-100'
-            },
-          ],
-          saleVolume: '2.1'
-        }
-      ]
+      discountList: []
+    };
+  },
+  methods: {
+    getDiscountList() {
+      homeHttp
+        .getDiscountProducts()
+        .then(res => {
+          if (res.status === 200) {
+            this.discountList = res.data.response;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getDiscounInfo() {
+      homeHttp
+        .getDiscountProductInfoById("5e83204919eb50093105f9c7")
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
-  mounted () {
-
+  mounted() {
+    this.getDiscountList();
+    this.getDiscounInfo();
   }
 };
 </script>
