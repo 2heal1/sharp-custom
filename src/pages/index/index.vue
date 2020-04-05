@@ -4,8 +4,14 @@
     <div class="indexTitle">
       <div>{{ $t("sapc.home.preferredProducts") }}</div>
     </div>
-    <van-swipe :autoplay="3000" class="swipe">
-      <van-swipe-item v-for="(image, index) in preferredProducts" :key="index">
+    <van-swipe
+      :autoplay="3000"
+      class="swipe"
+    >
+      <van-swipe-item
+        v-for="(image, index) in preferredProducts"
+        :key="index"
+      >
         <img v-lazy="image.imgUrl" />
       </van-swipe-item>
     </van-swipe>
@@ -21,13 +27,13 @@ import homeHttp from "@/actions/home";
 export default {
   name: "Home",
   components: { NewGoods, DiscountProducts },
-  data() {
+  data () {
     return {
       preferredProducts: []
     };
   },
   methods: {
-    getPreferredProductList() {
+    getPreferredProductList () {
       homeHttp
         .getPreferredProductList()
         .then(res => {
@@ -40,12 +46,12 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.getPreferredProductList();
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .homeView {
   width: 100%;
   .indexTitle {

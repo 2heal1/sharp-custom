@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     jumpToOtherPages (pages) {
-      this.$router.push(pages);
+      this.$router.push({ path: '/' + pages });
     }
   }
 };

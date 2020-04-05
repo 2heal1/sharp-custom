@@ -2,19 +2,29 @@
   <div class="newGoodsView">
     <div class="title">
       <div>{{ $t("sapc.home.newArrival") }}</div>
-      <div span="8" class="viewMore">
+      <div
+        span="8"
+        class="viewMore"
+      >
         {{ $t("sapc.common.viewMore") }}
         <i class="iconfont icon-arrow-right"></i>
       </div>
     </div>
     <div class="content">
-      <div v-for="(item, index) in newGoodsDta" :key="index" class="child">
+      <div
+        v-for="(item, index) in newGoodsDta"
+        :key="index"
+        class="child"
+      >
         <div class="text">
           <div>{{ item.date }}</div>
           <div class="price">¥{{ item.price }}</div>
         </div>
         <div>
-          <img :src="item.imgUrl" style="width:90px;height:90px" />
+          <img
+            :src="item.imgUrl"
+            style="width:90px;height:90px"
+          />
         </div>
       </div>
     </div>
@@ -25,7 +35,7 @@
 import testImg from "@/assets/logo.png";
 export default {
   name: "NewGoods",
-  data() {
+  data () {
     return {
       newGoodsDta: [
         {
@@ -59,7 +69,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .newGoodsView {
   padding: 0 10px;
   .title {

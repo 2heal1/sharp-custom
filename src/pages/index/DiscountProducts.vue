@@ -14,13 +14,13 @@ import homeHttp from "@/actions/home";
 export default {
   name: "DiscountProducts",
   components: { ProductList },
-  data() {
+  data () {
     return {
       discountList: []
     };
   },
   methods: {
-    getDiscountList() {
+    getDiscountList () {
       homeHttp
         .getDiscountProducts()
         .then(res => {
@@ -32,7 +32,7 @@ export default {
           console.log(err);
         });
     },
-    getDiscounInfo() {
+    getDiscounInfo () {
       homeHttp
         .getDiscountProductInfoById("5e83204919eb50093105f9c7")
         .then(res => {
@@ -45,13 +45,13 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.getDiscountList();
     this.getDiscounInfo();
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .discountView {
   padding: 0 10px;
   .title {
