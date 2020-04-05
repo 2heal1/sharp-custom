@@ -6,7 +6,10 @@
     <div class="content">
       <router-view />
     </div>
-    <div class="bottom">
+    <div
+      class="bottom"
+      v-if="this.isMainPage"
+    >
       <div
         class="navigation"
         @click="jumpToOtherPages('home')"
@@ -61,6 +64,9 @@ export default {
             this.originNavigationClass[pages + "Class"] + "-fill"
         });
       }
+    },
+    isMainPage () {
+      return this.$route.path.split('/').length <= 2
     }
   },
   data () {
