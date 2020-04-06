@@ -42,15 +42,66 @@
       <div>{{data.dec}}</div>
       <div>{{ $t("sapc.common.saleVolume", [data.saleVolume]) }}</div>
     </div>
+    <!-- 选择颜色分类 -->
+    <div class="selectSort">
+      <i class="iconfont icon-select-sort"></i>
+      <div class="typeChild">
+        <div class="text">{{ $t("sapc.product.pleaseChooseColorType") }}</div>
+        <i class="iconfont icon-arrow-right"></i>
+      </div>
+    </div>
+    <!-- 商品评价 -->
+    <div class="comment">
+      <!-- 评价标题 -->
+      <div class="commentTitle">
+        <div class="textSize">{{$t("sapc.product.productComment")}}{{'（'+comment.num+'）'}}</div>
+        <div class="commentViewMore">
+          <div>{{$t('sapc.common.viewMore')}}</div>
+          <i class="iconfont icon-arrow-right"></i>
+        </div>
+      </div>
+      <!-- 评价标签 -->
+      <div class="commentTag">
+        <van-tag
+          round
+          size="medium"
+          :type="tag.type"
+          v-for="(tag, tagIndex) in comment.tag"
+          :key="tagIndex"
+          class="tagDetail"
+        >{{ tag.title }}</van-tag>
+      </div>
+      <!-- 评论内容 -->
+      <div
+        v-for="(item,index) in comment.data"
+        :key="index"
+      >
+        <!-- 用户信息 -->
+        <div>
+          <img :src="item.avatar">
+          <div>{{item.nickName}}</div>
+        </div>
+        <!-- 内容 -->
+        <div>
+          {{item.content}}
+        </div>
+        <!-- 商品类别 -->
+        <div>
+          {{$t("sapc.product.colorType", [item.content])}}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import homeHttp from "@/actions/home";
+import productHttp from "@/actions/product";
 export default {
   name: "ProductDetail",
   data () {
     return {
-      data: {}
+      data: {},
+      comment: {}
     }
   },
   methods: {
@@ -65,10 +116,23 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    getProductCommentById () {
+      productHttp
+        .getProductCommentById(this.$route.params.id)
+        .then(res => {
+          if (res.status === 200) {
+            this.comment = res.data.response;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
   mounted () {
     this.getDiscountProductInfoById()
+    this.getProductCommentById()
   }
 };
 </script>
@@ -116,6 +180,72 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     padding: 0 10px;
+    margin-bottom: 20px;
+  }
+  .selectSort {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    .iconfont {
+      font-size: 40px;
+      color: gray;
+      flex-shrink: 0;
+    }
+    .typeChild {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 20px;
+      .iconfont {
+        font-size: 40px;
+        color: gray;
+      }
+      .text {
+        font-size: 8px;
+        color: gray;
+      }
+    }
+  }
+  .comment {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    .commentTitle {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .textSize {
+        font-size: 30px;
+        color: #1f1f1f;
+      }
+      .commentViewMore {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: #f7257b;
+        font-size: 24px;
+        .iconfont {
+          font-size: 40px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .commentTag {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .tagDetail {
+        margin: 10px 10px 0 0;
+      }
+    }
   }
 }
 </style>
