@@ -4,5 +4,15 @@ export const common = {
   shoppingCar: "购物车",
   personal: "个人",
   viewMore: "查看更多",
-  saleVolume: "月销{0}万笔"
+  params: "参数",
+  share: "分享",
+  left: "库存",
+  choosed: "已选",
+  colorType: "颜色分类",
+  shopNum: "购买数量",
+  remark: "备注",
+  leastOrder: "订单数量最少1000起",
+  addToShopCar: "加入购物车",
+  buyNow: "立即购买",
+  saleVolume: "月销{0}万笔",
 };
