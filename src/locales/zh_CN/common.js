@@ -8,6 +8,7 @@ export const common = {
   share: "分享",
   left: "库存",
   choosed: "已选",
+  collection: "收藏",
   colorType: "颜色分类",
   shopNum: "购买数量",
   remark: "备注",

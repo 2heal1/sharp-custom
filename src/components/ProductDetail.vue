@@ -163,10 +163,31 @@
           </div>
         </div>
       </div>
+      <!-- 图文详情 -->
+      <div class="picDetail">
+        <!-- 评价标题 -->
+        <div class="picDetailTitle">
+          <div class="textSize">{{$t("sapc.product.picTextDetail")}}</div>
+        </div>
+        <div v-html="data.picDetail"></div>
+      </div>
     </div>
     <!-- 底部导航 -->
     <div class="layoutBottom">
-
+      <div class="navigation">
+        <i class="iconfont icon-collection"></i>
+        <div>{{ $t("sapc.common.collection") }}</div>
+      </div>
+      <div class="layoutBottomBtn">
+        <van-button
+          type="warning"
+          size="large"
+        >{{$t("sapc.common.addToShopCar")}}</van-button>
+        <van-button
+          type="danger"
+          size="large"
+        >{{$t("sapc.common.buyNow")}}</van-button>
+      </div>
     </div>
   </div>
 </template>
@@ -186,7 +207,8 @@ export default {
       comment: {},
       chooseShop: {},
       show: false,
-      selectedNum: 1000
+      selectedNum: 1000,
+      picDetail: null
     }
   },
   methods: {
@@ -236,14 +258,22 @@ export default {
   flex-direction: column;
   width: 100%;
   overflow: hidden;
+  ::-webkit-scrollbar {
+    width: 0 !important;
+  }
   .layoutContent {
     display: flex;
     overflow: scroll;
     flex-grow: 1;
     flex-direction: column;
+    ::-webkit-scrollbar {
+      width: 0 !important;
+    }
     .swipe {
       width: 100%;
       height: 450px;
+      display: flex;
+      flex-shrink: 0;
       img {
         width: 100%;
         height: 100%;
@@ -271,7 +301,7 @@ export default {
       margin: 20px 0;
       font-size: 28px;
       color: rgba(0, 0, 0, 0.85);
-
+      flex-shrink: 0;
       .child {
         display: flex;
         flex-direction: row;
@@ -300,6 +330,7 @@ export default {
       padding: 0 10px;
       margin-bottom: 20px;
       color: gray;
+      flex-shrink: 0;
     }
     .selectSort {
       display: flex;
@@ -434,6 +465,7 @@ export default {
       padding: 0 10px;
       margin-bottom: 20px;
       font-size: 20px;
+      flex-shrink: 0;
       .commentTitle {
         display: flex;
         flex-direction: row;
@@ -461,6 +493,7 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        flex-shrink: 0;
         .tagDetail {
           margin: 10px 10px 0 0;
         }
@@ -501,22 +534,49 @@ export default {
         }
       }
     }
+    .picDetail {
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      .picDetailTitle {
+        display: flex;
+        margin-bottom: 20px;
+        .textSize {
+          font-size: 30px;
+          color: #1f1f1f;
+        }
+      }
+    }
   }
   .layoutBottom {
     display: flex;
     overflow: hidden;
     flex-shrink: 0;
     flex-direction: row;
-    justify-content: space-between;
     .navigation {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 50px;
+      flex-shrink: 0;
       align-items: center;
       padding: 0 12px;
       i {
-        font-size: 60px;
+        font-size: 50px;
       }
+    }
+    .layoutBottomBtn {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+    }
+  }
+  //保证ipx以上的底部导航安全距离
+  @supports (bottom: env(safe-area-inset-bottom)) {
+    .layoutBottom {
+      padding-bottom: env(safe-area-inset-bottom);
     }
   }
 }
