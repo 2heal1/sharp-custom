@@ -2,6 +2,7 @@
 import axios from "axios";
 import store from "@/store/index";
 import router from "@/router/index";
+import { Toast } from "vant";
 const http = axios.create({
   withCredentials: true,
   headers: {
@@ -38,10 +39,15 @@ http.interceptors.response.use(
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          router.replace({
-            //跳转到登录页面
-            path: "loginRegist",
-            query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+          Toast.fail({
+            message: error.response.data.error,
+            onClose: () => {
+              router.replace({
+                //跳转到登录页面
+                path: "/loginRegist",
+                query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+              });
+            }
           });
       }
     }

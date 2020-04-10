@@ -1,7 +1,13 @@
 <template>
   <div class="loginItem">
-    <van-tabs v-model="activeName" @click="handleClick">
-      <van-tab title="登陆" name="first">
+    <van-tabs
+      v-model="activeName"
+      @click="handleClick"
+    >
+      <van-tab
+        title="登陆"
+        name="first"
+      >
         <van-form
           validate-first
           ref="myForm"
@@ -22,13 +28,18 @@
             :rules="myRules.passwordRule"
           />
           <div class="btn">
-            <van-button type="default" size="large" native-type="submit"
-              >登录</van-button
-            >
+            <van-button
+              type="default"
+              size="large"
+              native-type="submit"
+            >登录</van-button>
           </div>
         </van-form>
       </van-tab>
-      <van-tab title="注册" name="second">
+      <van-tab
+        title="注册"
+        name="second"
+      >
         <register />
       </van-tab>
     </van-tabs>
@@ -43,7 +54,7 @@ export default {
   components: {
     register
   },
-  data() {
+  data () {
     return {
       routeQuery: "",
       rules,
@@ -73,14 +84,14 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["saveToken"]),
-    onFailed(errorInfo) {
+    ...mapMutations(["saveToken", "saveUserInfo"]),
+    onFailed (errorInfo) {
       console.log("failed", errorInfo);
     },
     //选项卡切换
-    handleClick() {},
+    handleClick () { },
     //提交表单
-    submitForm() {
+    submitForm () {
       loginHttp
         .login({
           phone: this.ruleForm.phone,
@@ -89,14 +100,16 @@ export default {
         .then(res => {
           if (res && res.data.success) {
             this.saveToken(res.data.token);
+            this.saveUserInfo(res.data);
             this.$toast({
               type: "success",
               message: res.data.message,
               onClose: () => {
                 let path = Object.keys(this.routeQuery).length
-                  ? this.routeQuery.path
-                  : "home";
-                this.$router.push(path);
+                  ? this.routeQuery.redirect
+                  : "/home";
+                console.log(path)
+                this.$router.replace(path);
               }
             });
           } else {
@@ -108,7 +121,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.routeQuery = this.$route.query;
   }
 };

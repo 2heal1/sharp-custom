@@ -9,7 +9,7 @@
       <img v-lazy="item.imgUrl" />
       <div class="title">{{ item.title }}</div>
       <div class="des">{{ item.dec }}</div>
-      <div class="price">{{ '¥ '+(item.discount*item.price/1000).toFixed(2)}}</div>
+      <div class="price">{{ '¥ '+(item.discount*item.minPrice/1000).toFixed(2)}}</div>
       <div>
         <van-tag
           round

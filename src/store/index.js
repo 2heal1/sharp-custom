@@ -4,7 +4,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     keepAlivePage: ["home"],
-    token: ""
+    token: "",
+    userInfo: ""
   },
   mutations: {
     /**
@@ -15,6 +16,9 @@ export default new Vuex.Store({
      */
     saveToken(state, token) {
       state.token = token;
+    },
+    saveUserInfo(state, data) {
+      state.userInfo = data;
     },
     // 保存缓存页面
     savePage(state, pageName) {

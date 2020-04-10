@@ -16,12 +16,15 @@
       </van-swipe>
       <!-- 折扣价 -->
       <div class="discountPrice">
-        {{'¥ '+(data.discount*data.price/1000).toFixed(2)}}
+        {{'¥ '+(data.discount*data.minPrice/1000).toFixed(2)}}
+        {{'- ¥ '+(data.discount*data.maxPrice/1000).toFixed(2)}}
       </div>
       <!-- 原价 -->
       <div class="price">
         {{$t('sapc.product.price')}}
-        <span>{{data.price}}</span>
+        <span>{{((data.minPrice)/1000).toFixed(2)}}</span>
+        -
+        <span>{{((data.maxPrice)/1000).toFixed(2)}}</span>
       </div>
       <!-- 标题+参数按钮+分享按钮 -->
       <div class="title">
@@ -68,7 +71,7 @@
           <!-- 当前选择 -->
           <div class="choose">
             <img
-              :src="chooseShop.imgUrl"
+              :src="data.imgUrl"
               class="chooseImg"
             >
             <div class="chooseInfo">
@@ -103,16 +106,28 @@
               />
             </div>
           </div>
+          <!-- 预定数量 -->
+          <div class="chooseNum">
+            <div class="chooseNumText">{{$t("sapc.common.preNum")}}</div>
+            <div>
+              <van-stepper
+                v-model="preSelectedNum"
+                min="0"
+              />
+            </div>
+          </div>
           <!-- 备注 -->
           <div class="chooseDec">
             <div class="chooseDecTitle">{{$t("sapc.common.remark")}}</div>
             <div class="chooseDecText">{{$t("sapc.common.leastOrder")}}</div>
+            <div class="chooseDecText">{{$t("sapc.common.preOrder")}}</div>
           </div>
           <!-- 底部操作按钮 -->
           <div class="chooseBtn">
             <van-button
               type="warning"
               size="large"
+              @click="addToShopCar"
             >{{$t("sapc.common.addToShopCar")}}</van-button>
             <van-button
               type="danger"
@@ -180,10 +195,12 @@
       </div>
       <div class="layoutBottomBtn">
         <van-button
+          @click="showPopup"
           type="warning"
           size="large"
         >{{$t("sapc.common.addToShopCar")}}</van-button>
         <van-button
+          @click="showPopup"
           type="danger"
           size="large"
         >{{$t("sapc.common.buyNow")}}</van-button>
@@ -194,9 +211,11 @@
 <script>
 import homeHttp from "@/actions/home";
 import productHttp from "@/actions/product";
+import { mapState } from 'vuex'
 export default {
   name: "ProductDetail",
   computed: {
+    ...mapState(['userInfo']),
     choosePrice () {
       return this.chooseShop.price * this.selectedNum / 1000
     }
@@ -208,10 +227,16 @@ export default {
       chooseShop: {},
       show: false,
       selectedNum: 1000,
+      preSelectedNum: 0,
       picDetail: null
     }
   },
   methods: {
+    /** 
+     * @Author: zhanghang 
+     * @Date: 2020-04-10 11:01:21 
+     * @Desc: 获取商品信息 
+     */
     getDiscountProductInfoById () {
       homeHttp
         .getDiscountProductInfoById(this.$route.params.id)
@@ -225,12 +250,60 @@ export default {
           console.log(err);
         });
     },
+    /** 
+     * @Author: zhanghang 
+     * @Date: 2020-04-10 11:01:34 
+     * @Desc: 获取商品评论信息 
+     */
     getProductCommentById () {
       productHttp
         .getProductCommentById(this.$route.params.id)
         .then(res => {
           if (res.status === 200) {
             this.comment = res.data.response;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    /** 
+     * @Author: zhanghang 
+     * @Date: 2020-04-10 11:01:40 
+     * @Desc: 增加至购物车 
+     * @params type 商品类别
+     * @params productId 商品id
+     * @params id 用户id
+     * @params num 商品数量
+     * @params preNum 预定商品数量
+     * @params colorType 商品颜色类别
+     */
+    addToShopCar () {
+      if (this.preSelectedNum) {
+        if (this.preSelectedNum < 1000) {
+          this.$toast({
+            type: 'fail',
+            message: this.$t('sapc.common.preOrder')
+          });
+          return
+        }
+      }
+      let params = Object.assign({}, {
+        type: this.data.type,
+        id: this.userInfo.id,
+        productId: this.data._id,
+        num: this.selectedNum,
+        preNum: this.preSelectedNum,
+        colorType: this.chooseShop.type
+      });
+      productHttp
+        .addToShopCar(params)
+        .then(res => {
+          if (res.status === 200) {
+            this.$toast({
+              type: res.data.success ? 'success' : 'fail',
+              message: res.data.message
+            });
           }
         })
         .catch(err => {
