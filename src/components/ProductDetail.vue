@@ -95,8 +95,34 @@
               </div>
             </div>
           </div>
+          <!-- 是否购买现货 -->
+          <div
+            class="chooseNum"
+            key="12341"
+          >
+            <div class="chooseNumText">{{$t("sapc.common.orderType")}}</div>
+            <div>
+              <van-radio-group
+                v-model="buyNow"
+                direction="horizontal"
+              >
+                <van-radio
+                  name="1"
+                  checked-color="#ff976a"
+                >{{$t("sapc.common.buyNowProduct")}}</van-radio>
+                <van-radio
+                  name="0"
+                  checked-color="#ff976a"
+                >{{$t("sapc.common.preProduct")}}</van-radio>
+              </van-radio-group>
+            </div>
+          </div>
           <!-- 购买数量 -->
-          <div class="chooseNum">
+          <div
+            class="chooseNum"
+            v-if="buyNow==1"
+            key="12341354"
+          >
             <div class="chooseNumText">{{$t("sapc.common.shopNum")}}</div>
             <div>
               <van-stepper
@@ -107,7 +133,11 @@
             </div>
           </div>
           <!-- 预定数量 -->
-          <div class="chooseNum">
+          <div
+            class="chooseNum"
+            v-else
+            key="preNum"
+          >
             <div class="chooseNumText">{{$t("sapc.common.preNum")}}</div>
             <div>
               <van-stepper
@@ -127,11 +157,12 @@
             <van-button
               type="warning"
               size="large"
-              @click="addToShopCar"
+              @click="addShopCar"
             >{{$t("sapc.common.addToShopCar")}}</van-button>
             <van-button
               type="danger"
               size="large"
+              @click="jumpToOrder"
             >{{$t("sapc.common.buyNow")}}</van-button>
           </div>
         </div>
@@ -211,7 +242,7 @@
 <script>
 import homeHttp from "@/actions/home";
 import productHttp from "@/actions/product";
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: "ProductDetail",
   computed: {
@@ -228,10 +259,12 @@ export default {
       show: false,
       selectedNum: 1000,
       preSelectedNum: 0,
+      buyNow: "1",
       picDetail: null
     }
   },
   methods: {
+    ...mapMutations(['saveProductInfo']),
     /** 
      * @Author: zhanghang 
      * @Date: 2020-04-10 11:01:21 
@@ -270,7 +303,7 @@ export default {
     /** 
      * @Author: zhanghang 
      * @Date: 2020-04-10 11:01:40 
-     * @Desc: 增加至购物车 
+     * @Desc: 增加现货至购物车 
      * @params type 商品类别
      * @params productId 商品id
      * @params id 用户id
@@ -279,21 +312,11 @@ export default {
      * @params colorType 商品颜色类别
      */
     addToShopCar () {
-      if (this.preSelectedNum) {
-        if (this.preSelectedNum < 1000) {
-          this.$toast({
-            type: 'fail',
-            message: this.$t('sapc.common.preOrder')
-          });
-          return
-        }
-      }
       let params = Object.assign({}, {
         type: this.data.type,
         id: this.userInfo.id,
         productId: this.data._id,
         num: this.selectedNum,
-        preNum: this.preSelectedNum,
         colorType: this.chooseShop.type
       });
       productHttp
@@ -309,6 +332,64 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    /** 
+     * @Author: zhanghang 
+     * @Date: 2020-04-10 11:01:40 
+     * @Desc: 增加预定商品至购物车 
+     * @params type 商品类别
+     * @params productId 商品id
+     * @params id 用户id
+     * @params preNum 预定商品数量
+     * @params colorType 商品颜色类别
+     */
+    addPreToShopCar () {
+      if (this.preSelectedNum < 1000) {
+        this.$toast({
+          type: 'fail',
+          message: this.$t('sapc.common.preOrder')
+        });
+        return
+      }
+      let params = Object.assign({}, {
+        type: this.data.type,
+        id: this.userInfo.id,
+        productId: this.data._id,
+        preNum: this.preSelectedNum,
+        colorType: this.chooseShop.type
+      });
+      productHttp
+        .addPreToShopCar(params)
+        .then(res => {
+          if (res.status === 200) {
+            this.$toast({
+              type: res.data.success ? 'success' : 'fail',
+              message: res.data.message
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    addShopCar () {
+      this.buyNow == '1' ? this.addToShopCar() : this.addPreToShopCar()
+    },
+    jumpToOrder () {
+      this.saveProductInfo({
+        productId: this.data._id + this.chooseShop.type,
+        title: this.data.title,
+        content: this.chooseShop.content,
+        left: this.chooseShop.left,
+        num: this.selectedNum,
+        preNum: this.preSelectedNum,
+        discount: this.chooseShop.discount,
+        price: this.chooseShop.price,
+        imgUrl: this.chooseShop.imgUrl,
+        type: this.data.type,
+        colorType: this.chooseShop.type,
+      })
+      this.$router.push('/confirmOrder')
     },
     showPopup () {
       this.show = true;
