@@ -16,6 +16,7 @@ export const common = {
   shopNum: "购买数量",
   preNum: "预定数量",
   remark: "备注",
+  submitOrder: "提交订单",
   leastOrder: "订单数量最少1000起",
   preOrder: "若要预定商品，预定订单数量最少1000起",
   addToShopCar: "加入购物车",

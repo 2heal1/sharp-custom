@@ -389,7 +389,7 @@ export default {
         type: this.data.type,
         colorType: this.chooseShop.type,
       })
-      this.$router.push('/confirmOrder')
+      this.$router.push('/order/confirmOrder')
     },
     showPopup () {
       this.show = true;
