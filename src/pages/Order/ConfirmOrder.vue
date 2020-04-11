@@ -55,7 +55,6 @@
             name="留言"
             label="留言"
             placeholder="留言"
-            :rules="[{ required: true, message: '请填写留言' }]"
           />
         </van-form>
       </div>
