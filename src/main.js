@@ -27,6 +27,7 @@ import {
   Radio,
   Lazyload,
   Popup,
+  Dialog,
   Stepper
 } from "vant";
 
@@ -40,6 +41,7 @@ Vue.use(Radio);
 Vue.use(Row);
 Vue.use(Tab);
 Vue.use(Switch);
+Vue.use(Dialog);
 Vue.use(Tabs);
 Vue.use(Toast);
 Vue.use(Form);

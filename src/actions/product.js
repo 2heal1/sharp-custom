@@ -34,8 +34,19 @@ function addToShopCar(params) {
 function addPreToShopCar(params) {
   return http.post("/api/users/addPreToShopCar", params);
 }
+
+/**
+ * javascript comment
+ * @Author: zhanghang
+ * @Date: 2020-04-13 18:02:23
+ * @Desc: 获取购物车
+ */
+function getShopCar(params) {
+  return http.get("/api/goods/getShopCar", { params: params });
+}
 export default {
   getProductCommentById,
   addToShopCar,
-  addPreToShopCar
+  addPreToShopCar,
+  getShopCar
 };

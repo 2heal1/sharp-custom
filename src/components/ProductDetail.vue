@@ -376,20 +376,30 @@ export default {
       this.buyNow == '1' ? this.addToShopCar() : this.addPreToShopCar()
     },
     jumpToOrder () {
-      this.saveProductInfo({
-        productId: this.data._id + this.chooseShop.type,
-        title: this.data.title,
-        content: this.chooseShop.content,
-        left: this.chooseShop.left,
-        num: this.selectedNum,
-        preNum: this.preSelectedNum,
-        discount: this.chooseShop.discount,
-        price: this.chooseShop.price,
-        imgUrl: this.chooseShop.imgUrl,
-        type: this.data.type,
-        colorType: this.chooseShop.type,
-      })
-      this.$router.push('/order/confirmOrder')
+      if (!this.userInfo) {
+        this.$router.replace({
+          //跳转到登录页面
+          path: "/loginRegist",
+          query: { redirect: this.$router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        });
+      } else {
+        this.saveProductInfo({
+          productId: this.data._id + this.chooseShop.type,
+          title: this.data.title,
+          content: this.chooseShop.content,
+          left: this.chooseShop.left,
+          num: this.selectedNum,
+          preNum: this.preSelectedNum,
+          discount: this.chooseShop.discount,
+          price: this.chooseShop.price,
+          imgUrl: this.chooseShop.imgUrl,
+          type: this.data.type,
+          colorType: this.chooseShop.type,
+        })
+        // type=1 现货 
+        // type=0 预定 
+        this.$router.push({ path: '/order/confirmOrder', query: { type: this.buyNow, buyNow: true } })
+      }
     },
     showPopup () {
       this.show = true;
