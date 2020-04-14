@@ -4,48 +4,48 @@
       <!-- 收件人信息 -->
       <div class="address">
         <div class="firstLine">
-          <span>姓名</span>
-          <span class="phone">联系方式</span>
+          <span>{{$t("sapc.common.name")}}</span>
+          <span class="phone">{{userInfo.phone}}</span>
         </div>
         <div class="secondLine">
-          <div>地址地址地址地址地址地址地址地址地址
-            地址地址地址地址地址地址地址
-          </div>
+          <div>{{!hasAddress ? '暂未填写地址' : userInfo.address[0].complete}}</div>
           <i class="iconfont icon-arrow-right"></i>
         </div>
       </div>
       <!-- 商品信息 -->
-      <div class="product">
+      <div
+        class="product"
+        v-for="(item,index) in data"
+        :key="index"
+      >
         <div class="picInfo">
-          <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2055165149,2704025303&fm=26&gp=0.jpg">
-          <div>title哈哈title哈哈title哈哈title哈哈title哈哈
-            title哈哈title哈哈title哈哈
-          </div>
+          <img :src="item.imgUrl">
+          <div>{{item.title}}</div>
         </div>
         <div class="params">
           <div class="colorType">
-            <div class="color">颜色zhong类</div>
-            <div>名字</div>
+            <div class="color">{{$t("sapc.common.colorType")}}</div>
+            <div>{{item.content}}</div>
           </div>
           <div v-if="isNow">
             <div class="numType">
               <div class="num">
-                <div class="color">购买单价</div>
-                <div>111</div>
+                <div class="color">{{$t("sapc.common.unitPrice")}}</div>
+                <div>{{'¥ '+(item.discount*item.price/1000).toFixed(2)}}</div>
               </div>
               <div>
-                <van-stepper v-model="value" />
+                <van-stepper v-model="item.num" />
               </div>
             </div>
           </div>
           <div v-else>
             <div class="numType">
               <div class="num">
-                <div class="color">预定单价</div>
-                <div>111</div>
+                <div class="color">{{$t("sapc.common.orderPrice")}}</div>
+                <div>{{'¥ '+(item.discount*item.price/1000).toFixed(2)}}</div>
               </div>
               <div>
-                <van-stepper v-model="value" />
+                <van-stepper v-model="item.num" />
               </div>
             </div>
           </div>
@@ -57,9 +57,9 @@
         <van-form>
           <van-field
             v-model="remark"
-            name="留言"
-            label="留言"
-            placeholder="留言"
+            :name="$t('sapc.common.unitPrice')"
+            :label="$t('sapc.common.unitPrice')"
+            :placeholder="$t('sapc.common.remarkPlaceHolder')"
           />
         </van-form>
       </div>
@@ -68,7 +68,7 @@
     <div class="layoutBottom">
       <div class="totalPrice">
         <div class="priceText">{{$t("sapc.order.totalPrice")}}</div>
-        <div class="price">¥49</div>
+        <div class="price">{{'¥ '+(totalPrice/1000).toFixed(2)}}</div>
       </div>
       <div class="layoutBottomBtn">
         <van-button
@@ -92,13 +92,27 @@ export default {
       //判断是预定还是现货 
       // type=1 现货 
       // type=0 预定 
-      return this.$route.query.type == '1'
+      return String(this.$route.query.type) == '1'
+    },
+    hasAddress () {
+      return !!(Object.keys(this.userInfo).length) && !!this.userInfo.address.length
+    },
+    totalPrice () {
+      let curPrice = this.data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
+      let prePrice = this.isNow ? 0 : curPrice;
+      let nowPrice = this.isNow ? curPrice : 0;
+      let curNum = this.data.reduce((pre, cur) => pre + cur.num, 0)
+      let nowNum = this.isNow ? curNum : 0;
+      let preNum = this.isNow ? 0 : curNum;
+      return nowPrice * nowNum + preNum * prePrice
     }
   },
+
   data () {
     return {
       value: 0,
-      remark: ''
+      remark: '',
+      data: []
     }
   },
   methods: {
@@ -118,10 +132,8 @@ export default {
         });
       }
       try {
-        let data = await this.getParams();
-        data = data.data.response.filter(item => item.now == this.isNow)
-        console.log(data)
-        let curPrice = data.reduce((pre, cur) => pre + cur.price, 0)
+        let data = this.data;
+        let curPrice = data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
         let curNum = data.reduce((pre, cur) => pre + cur.num, 0)
         let params = {
           id: this.userInfo.id,
@@ -130,6 +142,7 @@ export default {
           nowPrice: this.isNow ? curPrice : 0,
           nowNum: this.isNow ? curNum : 0,
           preNum: this.isNow ? 0 : curNum,
+          remark: this.remark
         }
         orderHttp.createOrder(params).then(res => {
           if (res.status === 200) {
@@ -145,16 +158,22 @@ export default {
         console.error(err)
       }
     },
-    async getParams () {
+    getParams () {
       //判断是否是从商品过来 还是购物车过来
       //buyNow=true 从商品过来 ，拿之前存储的信息
       //buyNow=false 从购物车过来，调接口获取
-      if (this.$route.query.buyNow) {
-        return [this.productInfo]
+      if (this.$route.query.buyNow !== String(false)) {
+        this.data = [this.productInfo].filter(item => item.now == this.isNow)
       } else {
-        return productHttp.getShopCar({ id: this.userInfo.id })
+        productHttp.getShopCar({ id: this.userInfo.id }).then(res => {
+          console.log(res)
+          this.data = res.data.response.filter(item => item.now == this.isNow)
+        })
       }
     }
+  },
+  created () {
+    this.getParams()
   }
 }
 </script>

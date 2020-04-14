@@ -7,9 +7,12 @@ export const common = {
   params: "参数",
   share: "分享",
   left: "库存",
+  name: "姓名",
   choosed: "已选",
   collection: "收藏",
   colorType: "颜色分类",
+  unitPrice: "购买单价",
+  orderPrice: "预定单价",
   buyNowProduct: "购买现货",
   preProduct: "预定商品",
   orderType: "下单类型",
@@ -21,5 +24,6 @@ export const common = {
   preOrder: "若要预定商品，预定订单数量最少1000起",
   addToShopCar: "加入购物车",
   buyNow: "立即购买",
+  remarkPlaceHolder: "有什么要和卖家说的吗？",
   saleVolume: "月销{0}万笔"
 };
