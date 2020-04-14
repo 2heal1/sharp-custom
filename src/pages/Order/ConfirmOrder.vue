@@ -117,46 +117,57 @@ export default {
   },
   methods: {
     async submitOrder () {
-      if (!this.isNow) {
-        this.$dialog.alert({
-          message: '该订单为预定订单，是否确认下单？',
-          showConfirmButton: true,
-          showCancelButton: true,
-          beforeClose: function (action, done) {
-            if (action == 'confirm') {
-              done()
-            } else {
-              return;
+      if (!this.hasAddress) {
+        this.$toast({
+          type: 'fail',
+          message: '请先填写地址',
+          onClose: function () {
+            return;
+          }
+        });
+      } else {
+        if (!this.isNow) {
+          this.$dialog.alert({
+            message: '该订单为预定订单，是否确认下单？',
+            showConfirmButton: true,
+            showCancelButton: true,
+            beforeClose: function (action, done) {
+              if (action == 'confirm') {
+                done()
+              } else {
+                return;
+              }
             }
-          }
-        });
-      }
-      try {
-        let data = this.data;
-        let curPrice = data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
-        let curNum = data.reduce((pre, cur) => pre + cur.num, 0)
-        let params = {
-          id: this.userInfo.id,
-          product: data,
-          prePrice: this.isNow ? 0 : curPrice,
-          nowPrice: this.isNow ? curPrice : 0,
-          nowNum: this.isNow ? curNum : 0,
-          preNum: this.isNow ? 0 : curNum,
-          remark: this.remark
+          });
         }
-        orderHttp.createOrder(params).then(res => {
-          if (res.status === 200) {
-            this.$toast({
-              type: res.data.success ? 'success' : 'fail',
-              message: res.data.message
-            });
+        try {
+          let data = this.data;
+          let curPrice = data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
+          let curNum = data.reduce((pre, cur) => pre + cur.num, 0)
+          let params = {
+            id: this.userInfo.id,
+            product: data,
+            prePrice: this.isNow ? 0 : curPrice,
+            nowPrice: this.isNow ? curPrice : 0,
+            nowNum: this.isNow ? curNum : 0,
+            preNum: this.isNow ? 0 : curNum,
+            remark: this.remark
           }
-        }).catch(err => {
-          console.log(err);
-        });
-      } catch (err) {
-        console.error(err)
+          orderHttp.createOrder(params).then(res => {
+            if (res.status === 200) {
+              this.$toast({
+                type: res.data.success ? 'success' : 'fail',
+                message: res.data.message
+              });
+            }
+          }).catch(err => {
+            console.log(err);
+          });
+        } catch (err) {
+          console.error(err)
+        }
       }
+
     },
     getParams () {
       //判断是否是从商品过来 还是购物车过来
@@ -244,7 +255,6 @@ export default {
         div {
           font-size: 26px;
           margin-left: 20px;
-          height: 100px;
           overflow: hidden;
           text-overflow: ellipsis;
           color: rgba(0, 0, 0, 0.7);

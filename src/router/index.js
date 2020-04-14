@@ -36,9 +36,15 @@ const routes = [
   },
   {
     path: "/personal",
-    name: "Personal",
+    redirect: "/personal/index",
     component: () =>
       import(/* webpackChunkName: "index" */ "@/pages/Personal/Personal")
+  },
+  {
+    path: "/personal/managerAddress",
+    name: "ManagerAddress",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/Personal/ManagerAddress")
   },
   {
     path: "/productDetail/:id",
