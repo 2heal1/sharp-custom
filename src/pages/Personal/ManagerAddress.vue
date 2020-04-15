@@ -10,10 +10,14 @@
   </div>
 </template>
 <script>
-import { Toast } from 'vant';
+import userHttp from "@/actions/user";
+import { mapState } from 'vuex'
 
 export default {
   name: 'ManagerAddress',
+  computed: {
+    ...mapState(['userInfo']),
+  },
   data () {
     return {
       chosenAddressId: '1',
@@ -35,12 +39,38 @@ export default {
   },
   methods: {
     onAdd () {
-      Toast('新增地址');
+      this.$router.push('addAddress')
     },
-    onEdit (item, index) {
-      Toast('编辑地址:' + index);
+    onEdit (item) {
+      this.$router.push('editAddress/' + item.id)
     },
+    getAddressList () {
+      userHttp
+        .getAddressList(this.userInfo.id)
+        .then(res => {
+          if (res.status === 200) {
+            this.list = res.data.response.map(item => {
+              item.id = item._id
+              return item
+            });
+            let index = this.list.findIndex(item => item.isDefault == true)
+            if (index !== -1) {
+              let cur = Object.assign({}, this.list[index]);
+              this.list.splice(index, 1);
+              this.list.unshift(cur)
+            }
+            this.chosenAddressId = this.list[0].id
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
   },
+  mounted () {
+    this.getAddressList()
+  }
 };
 </script>
 
