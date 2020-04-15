@@ -28,7 +28,10 @@ import {
   Lazyload,
   Popup,
   Dialog,
-  Stepper
+  Area,
+  AddressList,
+  AddressEdit,
+  Stepper,
 } from "vant";
 
 Vue.use(VueI18n);
@@ -44,6 +47,9 @@ Vue.use(Switch);
 Vue.use(Dialog);
 Vue.use(Tabs);
 Vue.use(Toast);
+Vue.use(Area);
+Vue.use(AddressList);
+Vue.use(AddressEdit);
 Vue.use(Form);
 Vue.use(Swipe);
 Vue.use(Tag);
@@ -51,7 +57,7 @@ Vue.use(SwipeItem);
 Vue.use(Popup);
 Vue.use(Stepper);
 Vue.use(Lazyload, {
-  loading: loadingImg
+  loading: loadingImg,
 });
 Vue.config.productionTip = false;
 
@@ -59,13 +65,13 @@ const i18n = new VueI18n({
   locale: "zh_CN", // 语言标识
   messages: {
     zh_CN: require("./locales/zh_CN/index"), // 中文语言包
-    en_US: require("./locales/en_US/index") // 英文语言包
-  }
+    en_US: require("./locales/en_US/index"), // 英文语言包
+  },
 });
 
 new Vue({
   router,
   i18n,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

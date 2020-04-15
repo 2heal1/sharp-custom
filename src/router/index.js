@@ -6,19 +6,19 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/home"
+    redirect: "/home",
   },
   {
     path: "/loginRegist",
     name: "LoginRegist",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/LoginRegist/index")
+      import(/* webpackChunkName: "index" */ "@/pages/LoginRegist/index"),
   },
   {
     path: "/home",
     name: "Home",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Index/Index")
+      import(/* webpackChunkName: "index" */ "@/pages/Index/Index"),
   },
   {
     path: "/classification",
@@ -26,44 +26,56 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "index" */ "@/pages/Classification/Classification"
-      )
+      ),
   },
   {
     path: "/shoppingCar",
     name: "ShoppingCar",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/ShoppingCar/ShoppingCar")
+      import(/* webpackChunkName: "index" */ "@/pages/ShoppingCar/ShoppingCar"),
   },
   {
     path: "/personal",
-    redirect: "/personal/index",
+    name: "Personal",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Personal/Personal")
+      import(/* webpackChunkName: "index" */ "@/pages/Personal/Personal"),
   },
   {
     path: "/personal/managerAddress",
     name: "ManagerAddress",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Personal/ManagerAddress")
+      import(/* webpackChunkName: "index" */ "@/pages/Personal/ManagerAddress"),
+  },
+  {
+    path: "/personal/editAddress/:id",
+    name: "EditAddress",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/Personal/EditAddress"),
+  },
+  {
+    path: "/personal/addAddress",
+    name: "AddAddress",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/pages/Personal/EditAddress"),
   },
   {
     path: "/productDetail/:id",
     name: "ProductDetail",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/components/ProductDetail")
+      import(/* webpackChunkName: "index" */ "@/components/ProductDetail"),
   },
   {
     path: "/order/confirmOrder",
     name: "ConfirmOrder",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Order/ConfirmOrder")
-  }
+      import(/* webpackChunkName: "index" */ "@/pages/Order/ConfirmOrder"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
