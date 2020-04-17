@@ -7,7 +7,10 @@
           <span>{{$t("sapc.common.name")}}</span>
           <span class="phone">{{userInfo.phone}}</span>
         </div>
-        <div class="secondLine">
+        <div
+          class="secondLine"
+          @click="jumpToAddressList"
+        >
           <div>{{address}}</div>
           <i class="iconfont icon-arrow-right"></i>
         </div>
@@ -89,7 +92,7 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'ConfirmOrder',
   computed: {
-    ...mapState(['userInfo', 'productInfo']),
+    ...mapState(['userInfo', 'productInfo', 'selectedAddress']),
     isNow () {
       //判断是预定还是现货 
       // type=1 现货 
@@ -116,7 +119,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["saveToken", "saveUserInfo", "saveProductInfo"]),
+    ...mapMutations(["saveToken", "saveUserInfo", "saveProductInfo", 'saveSelectedAddress']),
     async submitOrder () {
       if (!this.address) {
         this.$toast({
@@ -188,6 +191,9 @@ export default {
           this.address = res.data.response.province + res.data.response.city + res.data.response.county + res.data.response.addressDetail
         }
       })
+    },
+    jumpToAddressList () {
+      this.$router.push('/personal/managerAddress')
     }
   },
   created () {
@@ -198,7 +204,19 @@ export default {
     }
     this.getParams()
     this.getDefaultAddress()
-  }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (from.name == 'ManagerAddress' && sessionStorage.getItem('selectedAddress')) {
+      next(vm => {
+        vm.address = JSON.parse(sessionStorage.getItem('selectedAddress'))
+        vm.$nextTick(function () {
+          vm.saveSelectedAddress(JSON.parse(sessionStorage.getItem('selectedAddress')))
+        })
+      })
+    } else {
+      next()
+    }
+  },
 }
 </script>
 <style lang="less" scoped>

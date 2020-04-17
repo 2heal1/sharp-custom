@@ -3,15 +3,17 @@
     <van-address-list
       v-model="chosenAddressId"
       :list="list"
+      :switchable="true"
       default-tag-text="默认"
       @add="onAdd"
       @edit="onEdit"
+      @select="onSelect"
     />
   </div>
 </template>
 <script>
 import userHttp from "@/actions/user";
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'ManagerAddress',
@@ -38,6 +40,12 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['saveSelectedAddress', 'saveToken', 'saveUserInfo']),
+    onSelect (item) {
+      this.saveSelectedAddress(item)
+      sessionStorage.setItem('selectedAddress', JSON.stringify(item))
+      this.$router.go(-1)
+    },
     onAdd () {
       this.$router.push('addAddress')
     },
@@ -67,6 +75,12 @@ export default {
         });
     },
 
+  },
+  created () {
+    if (!Object.keys(this.userInfo).length) {
+      this.saveToken(sessionStorage.getItem('token'));
+      this.saveUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
+    }
   },
   mounted () {
     this.getAddressList()
