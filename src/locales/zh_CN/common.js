@@ -8,6 +8,7 @@ export const common = {
   share: "分享",
   left: "库存",
   name: "姓名",
+  receiver: "收货人",
   choosed: "已选",
   collection: "收藏",
   colorType: "颜色分类",
@@ -25,5 +26,5 @@ export const common = {
   addToShopCar: "加入购物车",
   buyNow: "立即购买",
   remarkPlaceHolder: "有什么要和卖家说的吗？",
-  saleVolume: "月销{0}万笔"
+  saleVolume: "月销{0}万笔",
 };

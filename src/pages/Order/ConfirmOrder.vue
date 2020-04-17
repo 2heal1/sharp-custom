@@ -4,7 +4,10 @@
       <!-- 收件人信息 -->
       <div class="address">
         <div class="firstLine">
-          <span>{{$t("sapc.common.name")}}</span>
+          <div>
+            <span>{{$t("sapc.common.receiver")+' : '}}</span>
+            <span>{{userInfo.username}}</span>
+          </div>
           <span class="phone">{{userInfo.phone}}</span>
         </div>
         <div
@@ -60,8 +63,8 @@
         <van-form>
           <van-field
             v-model="remark"
-            :name="$t('sapc.common.unitPrice')"
-            :label="$t('sapc.common.unitPrice')"
+            :name="$t('sapc.common.remark')"
+            :label="$t('sapc.common.remark')"
             :placeholder="$t('sapc.common.remarkPlaceHolder')"
           />
         </van-form>
@@ -71,7 +74,7 @@
     <div class="layoutBottom">
       <div class="totalPrice">
         <div class="priceText">{{$t("sapc.order.totalPrice")}}</div>
-        <div class="price">{{'¥ '+(totalPrice/1000).toFixed(2)}}</div>
+        <div class="price">{{'¥ '+totalPrice}}</div>
       </div>
       <div class="layoutBottomBtn">
         <van-button
@@ -100,13 +103,8 @@ export default {
       return String(this.$route.query.type) == '1'
     },
     totalPrice () {
-      let curPrice = this.data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
-      let prePrice = this.isNow ? 0 : curPrice;
-      let nowPrice = this.isNow ? curPrice : 0;
-      let curNum = this.data.reduce((pre, cur) => pre + cur.num, 0)
-      let nowNum = this.isNow ? curNum : 0;
-      let preNum = this.isNow ? 0 : curNum;
-      return nowPrice * nowNum + preNum * prePrice
+      let curPrice = this.data.reduce((pre, cur) => pre + cur.price / 1000 * cur.discount * cur.num, 0)
+      return (curPrice).toFixed(2)
     }
   },
 
@@ -155,7 +153,9 @@ export default {
             nowPrice: this.isNow ? curPrice : 0,
             nowNum: this.isNow ? curNum : 0,
             preNum: this.isNow ? 0 : curNum,
-            remark: this.remark
+            remark: this.remark,
+            address: this.address,
+            phone: this.userInfo.phone
           }
           orderHttp.createOrder(params).then(res => {
             if (res.status === 200) {
@@ -177,7 +177,7 @@ export default {
       //判断是否是从商品过来 还是购物车过来
       //buyNow=true 从商品过来 ，拿之前存储的信息
       //buyNow=false 从购物车过来，调接口获取
-      if (this.$route.query.buyNow !== String(false)) {
+      if (String(this.$route.query.buyNow) !== String(false)) {
         this.data = [this.productInfo].filter(item => item.now == this.isNow)
       } else {
         productHttp.getShopCar({ id: this.userInfo.id }).then(res => {
@@ -248,6 +248,9 @@ export default {
         opacity: 80%;
         color: rgba(0, 0, 0, 0.7);
         margin: 12px 0 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         .phone {
           margin-left: 40px;
         }
