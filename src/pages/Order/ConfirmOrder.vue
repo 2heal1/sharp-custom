@@ -8,7 +8,7 @@
           <span class="phone">{{userInfo.phone}}</span>
         </div>
         <div class="secondLine">
-          <div>{{!hasAddress ? '暂未填写地址' : userInfo.address[0].complete}}</div>
+          <div>{{address}}</div>
           <i class="iconfont icon-arrow-right"></i>
         </div>
       </div>
@@ -83,7 +83,9 @@
 <script>
 import orderHttp from '@/actions/orders'
 import productHttp from '@/actions/product'
-import { mapState } from 'vuex'
+import userHttp from "@/actions/user";
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'ConfirmOrder',
   computed: {
@@ -93,9 +95,6 @@ export default {
       // type=1 现货 
       // type=0 预定 
       return String(this.$route.query.type) == '1'
-    },
-    hasAddress () {
-      return !!(Object.keys(this.userInfo).length) && !!this.userInfo.address.length
     },
     totalPrice () {
       let curPrice = this.data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
@@ -112,12 +111,14 @@ export default {
     return {
       value: 0,
       remark: '',
-      data: []
+      data: [],
+      address: '暂未填写地址'
     }
   },
   methods: {
+    ...mapMutations(["saveToken", "saveUserInfo", "saveProductInfo"]),
     async submitOrder () {
-      if (!this.hasAddress) {
+      if (!this.address) {
         this.$toast({
           type: 'fail',
           message: '请先填写地址',
@@ -177,14 +178,26 @@ export default {
         this.data = [this.productInfo].filter(item => item.now == this.isNow)
       } else {
         productHttp.getShopCar({ id: this.userInfo.id }).then(res => {
-          console.log(res)
           this.data = res.data.response.filter(item => item.now == this.isNow)
         })
       }
+    },
+    getDefaultAddress () {
+      userHttp.getDefaultAddress(this.userInfo.id).then(res => {
+        if (res.data.success) {
+          this.address = res.data.response.province + res.data.response.city + res.data.response.county + res.data.response.addressDetail
+        }
+      })
     }
   },
   created () {
+    if (!Object.keys(this.userInfo).length) {
+      this.saveToken(sessionStorage.getItem('token'));
+      this.saveUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
+      this.saveProductInfo(JSON.parse(sessionStorage.getItem('productInfo')));
+    }
     this.getParams()
+    this.getDefaultAddress()
   }
 }
 </script>

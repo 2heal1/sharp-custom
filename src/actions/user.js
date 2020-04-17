@@ -63,9 +63,20 @@ function getAddressList(id) {
 function getAddressInfo(id) {
   return http.get("/api/users/getAddressInfo/" + id);
 }
+
+/**
+ * javascript comment
+ * @Author: zhanghang
+ * @Date: 2020-04-15 18:39:48
+ * @Desc: 获取当前默认地址
+ */
+function getDefaultAddress(id) {
+  return http.get("/api/users/getDefaultAddress/" + id);
+}
 export default {
   addAddress,
   editAddress,
   getAddressList,
   getAddressInfo,
+  getDefaultAddress,
 };

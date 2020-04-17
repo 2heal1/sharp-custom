@@ -99,6 +99,8 @@ export default {
         })
         .then(res => {
           if (res && res.data.success) {
+            sessionStorage.setItem('token', res.data.token)
+            sessionStorage.setItem('userInfo', JSON.stringify(res.data))
             this.saveToken(res.data.token);
             this.saveUserInfo(res.data);
             this.$toast({

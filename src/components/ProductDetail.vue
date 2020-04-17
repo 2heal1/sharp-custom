@@ -383,11 +383,13 @@ export default {
           query: { redirect: this.$router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
         });
       } else {
-        this.saveProductInfo({
+        let params = {
           productId: this.data._id + this.chooseShop.type,
           title: this.data.title,
           content: this.chooseShop.content,
           left: this.chooseShop.left,
+          now: this.buyNow == 1 ? true : false,
+          pre: this.buyNow == 1 ? false : true,
           num: this.selectedNum,
           preNum: this.preSelectedNum,
           discount: this.chooseShop.discount,
@@ -395,7 +397,9 @@ export default {
           imgUrl: this.chooseShop.imgUrl,
           type: this.data.type,
           colorType: this.chooseShop.type,
-        })
+        }
+        this.saveProductInfo(params)
+        sessionStorage.setItem('productInfo', JSON.stringify(params))
         // type=1 现货 
         // type=0 预定 
         this.$router.push({ path: '/order/confirmOrder', query: { type: this.buyNow, buyNow: true } })
