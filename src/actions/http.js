@@ -8,33 +8,33 @@ const http = axios.create({
   headers: {
     "Content-Type": "application/json;charset=UTF-8",
     post: {
-      "Content-Type": "application/x-www-form-urlencode;charset=UTF-8"
-    }
+      "Content-Type": "application/x-www-form-urlencode;charset=UTF-8",
+    },
     // "X-Requested-with": XMLHttpRequest   为什么设置后 safari就无法获取接口
   },
-  timeout: 30000
+  timeout: 30000,
 });
 
 // POST传参序列化（添加请求拦截器）
 http.interceptors.request.use(
-  config => {
+  (config) => {
     //判断是否存在token，如果存在的话，则每个http header都加上token
     if (store.state.token) {
       config.headers.Authorization = `token ${store.state.token}`;
     }
     return config;
   },
-  err => {
+  (err) => {
     return Promise.reject(err);
   }
 );
 
 // 对请求响应进行拦截并添加错误处理
 http.interceptors.response.use(
-  response => {
+  (response) => {
     return response;
   },
-  error => {
+  (error) => {
     // 请求超时的处理
     if (error.response) {
       switch (error.response.status) {
@@ -45,9 +45,9 @@ http.interceptors.response.use(
               router.replace({
                 //跳转到登录页面
                 path: "/loginRegist",
-                query: { redirect: router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
+                query: { redirect: router.currentRoute.fullPath }, // 将跳转的路由path作为参数，登录成功后跳转到该路由
               });
-            }
+            },
           });
       }
     }
