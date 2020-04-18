@@ -20,6 +20,7 @@
           @update:shopCarList="updateData($event)"
           :selected="selected"
           @update:selected="selectAllOptions($event)"
+          @changeData="changeData"
         />
       </van-tab>
     </van-tabs>
@@ -72,10 +73,10 @@ export default {
     updateData (val) {
       this.shopCarList[val[1]].checked = val[0];
     },
+    changeData (val) {
+      this.shopCarList = this.shopCarList.slice(0, val).concat(this.shopCarList.slice(val + 1))
+    },
     selectAllOptions (val) {
-      // this.shopCarList.forEach((item, index) => {
-      //   this.shopCarList[index] = Boolean(val)
-      // })
       this.shopCarList = this.shopCarList.map(item => {
         return Object.assign({}, item, {
           checked: val

@@ -66,7 +66,7 @@
             style="height:100%"
           >
             <van-button
-              @click="onDelete(index)"
+              @click="onDelete(index,item.productId)"
               square
               text="删除"
               type="danger"
@@ -99,6 +99,7 @@
   </div>
 </template>
 <script>
+import productHttp from "@/actions/product";
 export default {
   name: 'ShopCarCom',
   props: ['type', 'shopCarList', 'selected'],
@@ -142,14 +143,42 @@ export default {
     selectAll (checked) {
       this.computedSelected = checked
     },
-    onDelete (index) {
+    editShopCar (productId, num) {
+      let params = { id: this.$store.userInfo.id, productId, num }
+      params.isNow = this.isNow
+      productHttp
+        .editShopCar(params)
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res)
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    async deleteShopCar (index, productId) {
+      let params = { id: this.$store.state.userInfo.id, productId }
+      productHttp
+        .deleteShopCar(params)
+        .then(res => {
+          if (res.data.success) {
+            this.$emit('changeData', index)
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    onDelete (index, productId) {
+      let self = this
       this.$dialog.alert({
         message: '确认从购物车中删除该物品吗？',
         showConfirmButton: true,
         showCancelButton: true,
-        beforeClose: function (action, done) {
+        beforeClose: async function (action, done) {
           if (action == 'confirm') {
-            console.log(index)
+            await self.deleteShopCar(index, productId)
             done()
           } else {
             done()

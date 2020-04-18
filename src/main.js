@@ -36,6 +36,7 @@ import {
   AddressList,
   AddressEdit,
   Stepper,
+  TreeSelect,
 } from "vant";
 
 Vue.use(VueI18n);
@@ -43,6 +44,7 @@ Vue.use(NumberKeyboard);
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(Col);
+Vue.use(TreeSelect);
 Vue.use(Checkbox);
 Vue.use(SwipeCell);
 Vue.use(CheckboxGroup);

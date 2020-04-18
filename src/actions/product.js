@@ -54,10 +54,20 @@ function getShopCar(params) {
 function getShopCarByType(params) {
   return http.get("/api/goods/getShopCarByType", { params: params });
 }
+
+function editShopCar(params) {
+  return http.post("/api/users/editShopCar", params);
+}
+
+function deleteShopCar(params) {
+  return http.post("/api/users/deleteShopCar", params);
+}
 export default {
   getProductCommentById,
   addToShopCar,
   addPreToShopCar,
   getShopCar,
   getShopCarByType,
+  editShopCar,
+  deleteShopCar,
 };
