@@ -8,19 +8,31 @@
       </div>
       <!-- 订单状态 -->
       <div class="orderStatus">
-        <div class="detail">
+        <div
+          class="detail"
+          @click="jumpToOtherPages({path:'/order/orderList',query:{status:2}})"
+        >
           <i class="iconfont icon-goods-send"></i>
           <div>待发货</div>
         </div>
-        <div class="detail">
+        <div
+          class="detail"
+          @click="jumpToOtherPages({path:'/order/orderList',query:{status:4}})"
+        >
           <i class="iconfont icon-goods-received"></i>
           <div>待收货</div>
         </div>
-        <div class="detail">
+        <div
+          class="detail"
+          @click="jumpToOtherPages({path:'/order/orderList',query:{status:7}})"
+        >
           <i class="iconfont icon-order-fill"></i>
           <div>交易完成</div>
         </div>
-        <div class="detail">
+        <div
+          class="detail"
+          @click="jumpToOtherPages({path:'/order/orderList',query:{status:0}})"
+        >
           <i class="iconfont icon-all-fill"></i>
           <div>全部订单</div>
         </div>

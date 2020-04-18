@@ -19,7 +19,12 @@ function createOrder(params) {
 function getOrderInfoById(id) {
   return http.get("/api/orders/getOrderInfoById/" + id);
 }
+
+function getOrderList(params) {
+  return http.get("/api/orders/getOrderList", { params: params });
+}
 export default {
   createOrder,
   getOrderInfoById,
+  getOrderList,
 };

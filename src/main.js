@@ -18,6 +18,7 @@ import {
   Tab,
   Tabs,
   Form,
+  Loading,
   Toast,
   Swipe,
   SwipeItem,
@@ -41,6 +42,7 @@ Vue.use(Field);
 Vue.use(Col);
 Vue.use(RadioGroup);
 Vue.use(Radio);
+Vue.use(Loading);
 Vue.use(Row);
 Vue.use(Tab);
 Vue.use(Switch);

@@ -78,6 +78,12 @@ const routes = [
       import(/* webpackChunkName: "order" */ "@/pages/Order/ConfirmOrder"),
   },
   {
+    path: "/order/orderList",
+    name: "OrderList",
+    component: () =>
+      import(/* webpackChunkName: "order" */ "@/pages/Order/OrderList"),
+  },
+  {
     path: "/order/orderDetail/:id",
     name: "OrderDetail",
     component: () =>
