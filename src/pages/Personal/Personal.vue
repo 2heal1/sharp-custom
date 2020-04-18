@@ -27,7 +27,10 @@
       </div>
     </div>
     <div class="list">
-      <div class="listDetail">
+      <div
+        class="listDetail"
+        @click="jumpToOtherPages('/personal/managerAddress')"
+      >
         <div class="title">
           <i class="iconfont icon-map"></i>
           <div>地址管理</div>
@@ -51,7 +54,11 @@
       <div class="listDetail">
         <div class="title">
           <i class="iconfont icon-phone"></i>
-          <div>联系商家</div>
+          <div>
+            <a
+              style=" color: rgba(0, 0, 0, 0.8);"
+              href='tel:18266915978'
+            >联系商家</a></div>
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>
@@ -79,6 +86,9 @@ export default {
           this.data = res.data.response
         }
       })
+    },
+    jumpToOtherPages (pages) {
+      this.$router.push(pages)
     }
   },
   mounted () {
@@ -166,6 +176,18 @@ export default {
       .iconfont {
         font-size: 40px;
         margin-right: 12px;
+        color: rgba(0, 0, 0, 0.8);
+      }
+      a:link {
+        color: rgba(0, 0, 0, 0.8);
+      }
+      a:visited {
+        color: rgba(0, 0, 0, 0.8);
+      }
+      a:hover {
+        color: rgba(0, 0, 0, 0.8);
+      }
+      a:active {
         color: rgba(0, 0, 0, 0.8);
       }
     }

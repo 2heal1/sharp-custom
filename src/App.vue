@@ -66,7 +66,7 @@ export default {
       }
     },
     isMainPage () {
-      return this.$route.path.split('/').length <= 2
+      return this.$route.path !== '/loginRegist' && this.$route.path.split('/').length <= 2
     }
   },
   data () {

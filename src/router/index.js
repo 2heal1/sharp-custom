@@ -26,56 +26,62 @@ const routes = [
     name: "Classification",
     component: () =>
       import(
-        /* webpackChunkName: "index" */ "@/pages/Classification/Classification"
+        /* webpackChunkName: "classification" */ "@/pages/Classification/Classification"
       ),
   },
   {
     path: "/shoppingCar",
     name: "ShoppingCar",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/ShoppingCar/ShoppingCar"),
+      import(
+        /* webpackChunkName: "shoppingCar" */ "@/pages/ShoppingCar/ShoppingCar"
+      ),
   },
   {
     path: "/personal",
     name: "Personal",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Personal/Personal"),
+      import(/* webpackChunkName: "personal" */ "@/pages/Personal/Personal"),
   },
   {
     path: "/personal/managerAddress",
     name: "ManagerAddress",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Personal/ManagerAddress"),
+      import(
+        /* webpackChunkName: "personal" */ "@/pages/Personal/ManagerAddress"
+      ),
   },
   {
     path: "/personal/editAddress/:id",
     name: "EditAddress",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Personal/EditAddress"),
+      import(/* webpackChunkName: "personal" */ "@/pages/Personal/EditAddress"),
   },
   {
     path: "/personal/addAddress",
     name: "AddAddress",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Personal/EditAddress"),
+      import(/* webpackChunkName: "personal" */ "@/pages/Personal/EditAddress"),
   },
   {
     path: "/productDetail/:id",
     name: "ProductDetail",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/components/ProductDetail"),
+      import(
+        /* webpackChunkName: "productDetail" */ "@/components/ProductDetail"
+      ),
   },
   {
     path: "/order/confirmOrder",
     name: "ConfirmOrder",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Order/ConfirmOrder"),
+      import(/* webpackChunkName: "order" */ "@/pages/Order/ConfirmOrder"),
   },
   {
     path: "/order/orderDetail/:id",
     name: "OrderDetail",
     component: () =>
-      import(/* webpackChunkName: "index" */ "@/pages/Order/OrderDetail"),
+      import(/* webpackChunkName: "order" */ "@/pages/Order/OrderDetail"),
   },
 ];
 

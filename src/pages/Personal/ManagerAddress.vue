@@ -23,6 +23,7 @@ export default {
   data () {
     return {
       chosenAddressId: '1',
+      routeInfo: {},
       list: [
         {
           id: '1',
@@ -42,9 +43,11 @@ export default {
   methods: {
     ...mapMutations(['saveSelectedAddress']),
     onSelect (item) {
-      this.saveSelectedAddress(item)
-      sessionStorage.setItem('selectedAddress', JSON.stringify(item))
-      this.$router.go(-1)
+      if (this.routeInfo.fullPath !== '/personal') {
+        this.saveSelectedAddress(item)
+        sessionStorage.setItem('selectedAddress', JSON.stringify(item))
+        this.$router.go(-1)
+      }
     },
     onAdd () {
       this.$router.push('addAddress')
@@ -78,7 +81,12 @@ export default {
   },
   mounted () {
     this.getAddressList()
-  }
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.routeInfo = from
+    })
+  },
 };
 </script>
 
