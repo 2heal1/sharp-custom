@@ -30,6 +30,9 @@ import {
   Popup,
   Dialog,
   Area,
+  Checkbox,
+  SwipeCell,
+  CheckboxGroup,
   AddressList,
   AddressEdit,
   Stepper,
@@ -40,6 +43,9 @@ Vue.use(NumberKeyboard);
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(Col);
+Vue.use(Checkbox);
+Vue.use(SwipeCell);
+Vue.use(CheckboxGroup);
 Vue.use(RadioGroup);
 Vue.use(Radio);
 Vue.use(Loading);

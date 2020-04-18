@@ -44,9 +44,20 @@ function addPreToShopCar(params) {
 function getShopCar(params) {
   return http.get("/api/goods/getShopCar", { params: params });
 }
+
+/**
+ * javascript comment
+ * @Author: zhanghang
+ * @Date: 2020-04-18 20:03:16
+ * @Desc:  获取制定类型购物车
+ */
+function getShopCarByType(params) {
+  return http.get("/api/goods/getShopCarByType", { params: params });
+}
 export default {
   getProductCommentById,
   addToShopCar,
   addPreToShopCar,
-  getShopCar
+  getShopCar,
+  getShopCarByType,
 };
