@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store/index";
 
 Vue.use(VueRouter);
 
@@ -82,6 +83,24 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (!Object.keys(store.state.userInfo).length) {
+    sessionStorage.getItem("token") &&
+      store.commit("saveToken", sessionStorage.getItem("token"));
+    sessionStorage.getItem("userInfo") &&
+      store.commit(
+        "saveUserInfo",
+        JSON.parse(sessionStorage.getItem("userInfo"))
+      );
+    sessionStorage.getItem("productInfo") &&
+      store.commit(
+        "saveProductInfo",
+        JSON.parse(sessionStorage.getItem("productInfo"))
+      );
+  }
+  next();
 });
 
 export default router;

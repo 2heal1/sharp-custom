@@ -40,7 +40,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['saveSelectedAddress', 'saveToken', 'saveUserInfo']),
+    ...mapMutations(['saveSelectedAddress']),
     onSelect (item) {
       this.saveSelectedAddress(item)
       sessionStorage.setItem('selectedAddress', JSON.stringify(item))
@@ -75,12 +75,6 @@ export default {
         });
     },
 
-  },
-  created () {
-    if (!Object.keys(this.userInfo).length) {
-      this.saveToken(sessionStorage.getItem('token'));
-      this.saveUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
-    }
   },
   mounted () {
     this.getAddressList()

@@ -98,7 +98,7 @@ import orderStatus from '@/utils/orderStatus'
 export default {
   name: 'OrderDetail',
   computed: {
-    ...mapState(['userInfo', 'productInfo', 'selectedAddress']),
+    ...mapState(['userInfo']),
     isNow () {
       //判断是预定还是现货 
       return this.data.nowNum == 0
@@ -115,7 +115,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["saveToken", "saveUserInfo", "saveProductInfo", 'saveSelectedAddress']),
+    ...mapMutations(['saveSelectedAddress']),
     getOrderInfoById () {
       orderHttp.getOrderInfoById(this.$route.params.id).then(res => {
         console.log(res)
@@ -126,10 +126,6 @@ export default {
     }
   },
   created () {
-    if (!Object.keys(this.userInfo).length) {
-      this.saveToken(sessionStorage.getItem('token'));
-      this.saveUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
-    }
     this.getOrderInfoById()
   },
 }

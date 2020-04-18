@@ -117,7 +117,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["saveToken", "saveUserInfo", "saveProductInfo", 'saveSelectedAddress']),
+    ...mapMutations(['saveSelectedAddress']),
     async submitOrder () {
       if (!this.address) {
         this.$toast({
@@ -197,11 +197,6 @@ export default {
     }
   },
   created () {
-    if (!Object.keys(this.userInfo).length) {
-      this.saveToken(sessionStorage.getItem('token'));
-      this.saveUserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
-      this.saveProductInfo(JSON.parse(sessionStorage.getItem('productInfo')));
-    }
     this.getParams()
     this.getDefaultAddress()
   },
