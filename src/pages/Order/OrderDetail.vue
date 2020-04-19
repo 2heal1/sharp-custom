@@ -5,7 +5,7 @@
       <div class="orderStatus">
         <div class="status">
           <div>订单状态</div>
-          <div :style="{color:data.status==9 ? 'gray' : green}"> {{orderStatus[data.status]}}</div>
+          <div :style="{color:data.status==9 ? 'gray' : 'green'}"> {{orderStatus[data.status]}}</div>
         </div>
         <div class="statusTime">
           <div>最近更新订单时间</div>
@@ -118,7 +118,6 @@ export default {
     ...mapMutations(['saveSelectedAddress']),
     getOrderInfoById () {
       orderHttp.getOrderInfoById(this.$route.params.id).then(res => {
-        console.log(res)
         if (res.status == 200) {
           this.data = res.data.response
         }

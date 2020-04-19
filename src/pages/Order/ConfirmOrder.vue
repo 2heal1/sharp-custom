@@ -157,11 +157,15 @@ export default {
             address: this.address,
             phone: this.userInfo.phone
           }
+          let self = this
           orderHttp.createOrder(params).then(res => {
             if (res.status === 200) {
               this.$toast({
                 type: res.data.success ? 'success' : 'fail',
-                message: res.data.message
+                message: res.data.message,
+                onClose: function () {
+                  self.$router.replace({ path: '/order/orderDetail/' + res.data.data._id })
+                }
               });
             }
           }).catch(err => {
