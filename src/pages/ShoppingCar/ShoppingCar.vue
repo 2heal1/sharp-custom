@@ -37,13 +37,13 @@ export default {
       active: 0,
       data: [
         {
+          title: '预定商品',
+          type: 0
+        },
+        {
           title: '现货商品',
           type: 1
         },
-        {
-          title: '预定商品',
-          type: 0
-        }
       ],
       shopCarList: [],
       showLoading: false,

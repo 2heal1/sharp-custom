@@ -25,7 +25,10 @@
               ></van-checkbox>
             </div>
             <div class="product">
-              <div class="picInfo">
+              <div
+                class="picInfo"
+                @click="jumpToOthers(item)"
+              >
                 <img :src="item.imgUrl">
                 <div>{{item.title}}</div>
               </div>
@@ -186,6 +189,13 @@ export default {
           }
         }
       });
+    },
+    jumpToOthers (item) {
+      let length = String(item.colorType).length
+      let length2 = String(item.type).length
+      let totalLength = this.isNow ? length : length + length2
+      let id = item.productId.slice(0, item.productId.length - totalLength)
+      this.$router.push('/productDetail/' + id)
     }
   },
   mounted () {
