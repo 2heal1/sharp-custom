@@ -384,7 +384,7 @@ export default {
         });
       } else {
         let params = {
-          productId: this.data._id + this.chooseShop.type,
+          productId: this.data._id,
           title: this.data.title,
           content: this.chooseShop.content,
           left: this.chooseShop.left,
@@ -398,11 +398,11 @@ export default {
           type: this.data.type,
           colorType: this.chooseShop.type,
         }
-        this.saveProductInfo(params)
+        this.saveProductInfo([params])
         sessionStorage.setItem('productInfo', JSON.stringify(params))
         // type=1 现货 
         // type=0 预定 
-        this.$router.push({ path: '/order/confirmOrder', query: { type: this.buyNow, buyNow: true } })
+        this.$router.push({ path: '/order/confirmOrder', query: { type: this.buyNow } })
       }
     },
     showPopup () {

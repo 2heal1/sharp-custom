@@ -93,6 +93,7 @@
         </div>
         <div class="layoutBottomBtn">
           <van-button
+            @click="submitOrder"
             type="warning"
             size="large"
           >{{$t("sapc.common.submitOrder")}}</van-button>
@@ -103,6 +104,7 @@
 </template>
 <script>
 import productHttp from "@/actions/product";
+import { mapMutations } from 'vuex'
 export default {
   name: 'ShopCarCom',
   props: ['type', 'shopCarList', 'selected'],
@@ -140,6 +142,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['saveProductInfo']),
     onChange (checked, index) {
       this.computedShopCar = [checked, index]
     },
@@ -196,6 +199,20 @@ export default {
       let totalLength = this.isNow ? length : length + length2
       let id = item.productId.slice(0, item.productId.length - totalLength)
       this.$router.push('/productDetail/' + id)
+    },
+    submitOrder () {
+      if (this.selected.length == 0) {
+        this.$toast({
+          type: 'fail',
+          message: '请先选择商品'
+        });
+      } else {
+        this.saveProductInfo(this.selected)
+        sessionStorage.setItem('productInfo', JSON.stringify(this.selected))
+        // type=1 现货 
+        // type=0 预定 
+        this.$router.push({ path: '/order/confirmOrder', query: { type: Number(this.isNow) } })
+      }
     }
   },
   mounted () {

@@ -20,7 +20,7 @@ export default new Vuex.Store({
     //   create_time: "2020-04-14 16:13:18",
     // },
     userInfo: {},
-    productInfo: {},
+    productInfo: [],
   },
   mutations: {
     /**

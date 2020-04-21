@@ -88,7 +88,6 @@
 </template>
 <script>
 import orderHttp from '@/actions/orders'
-import productHttp from '@/actions/product'
 import userHttp from "@/actions/user";
 import { mapState, mapMutations } from 'vuex'
 
@@ -178,16 +177,7 @@ export default {
 
     },
     getParams () {
-      //判断是否是从商品过来 还是购物车过来
-      //buyNow=true 从商品过来 ，拿之前存储的信息
-      //buyNow=false 从购物车过来，调接口获取
-      if (String(this.$route.query.buyNow) !== String(false)) {
-        this.data = [this.productInfo].filter(item => item.now == this.isNow)
-      } else {
-        productHttp.getShopCar({ id: this.userInfo.id }).then(res => {
-          this.data = res.data.response.filter(item => item.now == this.isNow)
-        })
-      }
+      this.data = this.productInfo.filter(item => item.now == this.isNow)
     },
     getDefaultAddress () {
       userHttp.getDefaultAddress(this.userInfo.id).then(res => {
