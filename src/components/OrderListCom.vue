@@ -83,6 +83,10 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 0 !important;
+  }
   .emptyData {
     display: flex;
     flex-direction: column;
@@ -103,6 +107,8 @@ export default {
     padding: 20px;
     flex-direction: column;
     margin-bottom: 20px;
+    height: 280px;
+    flex-shrink: 0;
     .picInfo {
       display: flex;
       flex-direction: row;

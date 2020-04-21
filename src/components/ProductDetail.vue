@@ -383,8 +383,12 @@ export default {
           query: { redirect: this.$router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
         });
       } else {
+        let cur = this.data._id + this.chooseShop.type
+        if (this.buyNow == '1') {
+          cur = cur + this.data.type
+        }
         let params = {
-          productId: this.data._id,
+          productId: cur,
           title: this.data.title,
           content: this.chooseShop.content,
           left: this.chooseShop.left,

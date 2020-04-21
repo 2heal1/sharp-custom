@@ -32,6 +32,7 @@
         class="product"
         v-for="(item,index) in data.product"
         :key="index"
+        @click="jumpToDetails(item)"
       >
         <div class="picInfo">
           <img :src="item.imgUrl">
@@ -101,7 +102,7 @@ export default {
     ...mapState(['userInfo']),
     isNow () {
       //判断是预定还是现货 
-      return this.data.nowNum == 0
+      return this.data.nowNum !== 0
     }
   },
 
@@ -122,6 +123,13 @@ export default {
           this.data = res.data.response
         }
       })
+    },
+    jumpToDetails (item) {
+      let length = String(item.colorType).length
+      let length2 = String(item.type).length
+      let totalLength = this.isNow ? length : length + length2
+      let id = item.productId.slice(0, item.productId.length - totalLength)
+      this.$router.push('/productDetail/' + id)
     }
   },
   created () {
