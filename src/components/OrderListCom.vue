@@ -12,6 +12,7 @@
         class="product"
         v-for="(item,index) in orderList"
         :key="index"
+        @click="jumpToDetails(item._id)"
       >
         <div class="picInfo">
           <img :src="item.product[0].imgUrl">
@@ -68,7 +69,9 @@ export default {
     },
   },
   methods: {
-
+    jumpToDetails (pages) {
+      this.$router.push('/order/orderDetail/' + pages)
+    }
   },
   mounted () {
   }
