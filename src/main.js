@@ -16,6 +16,8 @@ import {
   Col,
   Row,
   Tab,
+  Sidebar,
+  SidebarItem,
   Tabs,
   Form,
   Loading,
@@ -44,6 +46,8 @@ Vue.use(NumberKeyboard);
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(Col);
+Vue.use(SidebarItem);
+Vue.use(Sidebar);
 Vue.use(TreeSelect);
 Vue.use(Checkbox);
 Vue.use(SwipeCell);

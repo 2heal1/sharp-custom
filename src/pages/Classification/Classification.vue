@@ -1,23 +1,29 @@
 <template>
   <div class="classificationView">
-    <van-tree-select
-      style="height:100%"
-      :items="sortList"
-      :active-id.sync="activeId"
-      :main-active-index.sync="activeIndex"
-    />
+    <van-sidebar
+      v-model="activeKey"
+      @change="onChange"
+    >
+      <van-sidebar-item title="标签名称" />
+      <van-sidebar-item title="标签名称" />
+      <van-sidebar-item title="标签名称" />
+    </van-sidebar>
   </div>
 </template>
 <script>
-import sortList from '@/assets/sort'
 export default {
   name: 'Classification',
   data () {
     return {
-      sortList,
       activeId: 1,
       activeIndex: 0,
+      activeKey: 0,
     };
+  },
+  methods: {
+    onChange (index) {
+      console.log(index)
+    },
   },
 };
 </script>
