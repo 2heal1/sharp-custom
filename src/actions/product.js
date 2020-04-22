@@ -62,6 +62,10 @@ function editShopCar(params) {
 function deleteShopCar(params) {
   return http.post("/api/users/deleteShopCar", params);
 }
+
+function getSortTable() {
+  return http.get("/api/goods/getSortTable");
+}
 export default {
   getProductCommentById,
   addToShopCar,
@@ -70,4 +74,5 @@ export default {
   getShopCarByType,
   editShopCar,
   deleteShopCar,
+  getSortTable,
 };
