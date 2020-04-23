@@ -240,7 +240,6 @@
   </div>
 </template>
 <script>
-import homeHttp from "@/actions/home";
 import productHttp from "@/actions/product";
 import { mapState, mapMutations } from 'vuex'
 export default {
@@ -271,8 +270,8 @@ export default {
      * @Desc: 获取商品信息 
      */
     getDiscountProductInfoById () {
-      homeHttp
-        .getDiscountProductInfoById(this.$route.params.id)
+      productHttp
+        .getProductInfo({ id: this.$route.params.id, productType: this.$route.query.type })
         .then(res => {
           if (res.status === 200) {
             this.data = res.data.response;

@@ -66,6 +66,15 @@ function deleteShopCar(params) {
 function getSortTable() {
   return http.get("/api/goods/getSortTable");
 }
+
+function getProductList(params) {
+  return http.get("/api/goods/getProductList", { params: params });
+}
+
+function getProductInfo(params) {
+  return http.get("/api/goods/getProductInfo", { params: params });
+}
+
 export default {
   getProductCommentById,
   addToShopCar,
@@ -75,4 +84,6 @@ export default {
   editShopCar,
   deleteShopCar,
   getSortTable,
+  getProductList,
+  getProductInfo,
 };

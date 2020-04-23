@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     jumpToOthers (id) {
-      this.$router.push('/productDetail/' + id)
+      this.$router.push({ path: '/productDetail/' + id, query: { type: this.$route.params.type } })
     }
   }
 };
@@ -52,7 +52,10 @@ export default {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
+    border-radius: 12px;
+    background-color: white;
     .title {
+      padding-left: 4px;
       font-size: 16px;
       white-space: nowrap;
       color: dimgray;
@@ -60,10 +63,12 @@ export default {
       text-overflow: ellipsis;
     }
     .des {
+      padding-left: 4px;
       font-size: 10px;
       color: gray;
     }
     .price {
+      padding-left: 4px;
       font-size: 16px;
       color: red;
     }

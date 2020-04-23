@@ -86,12 +86,12 @@ export default {
       flex-direction: row;
       padding: 20px;
       flex-wrap: wrap;
-      justify-content: space-between;
       .pic {
         display: flex;
         flex-direction: column;
         justify-content: center;
         width: 30%;
+        padding: 0 12px;
         img {
           width: 100%;
         }

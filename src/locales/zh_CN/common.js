@@ -26,5 +26,5 @@ export const common = {
   addToShopCar: "加入购物车",
   buyNow: "立即购买",
   remarkPlaceHolder: "有什么要和卖家说的吗？",
-  saleVolume: "月销{0}万笔",
+  saleVolume: "月销{0}笔",
 };

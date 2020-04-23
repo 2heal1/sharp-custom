@@ -89,6 +89,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "order" */ "@/pages/Order/OrderDetail"),
   },
+  {
+    path: "/productList/:type",
+    name: "ClassProductList",
+    component: () =>
+      import(
+        /* webpackChunkName: "personal" */ "@/pages/Classification/ClassProductList"
+      ),
+  },
 ];
 
 const router = new VueRouter({

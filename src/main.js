@@ -39,12 +39,16 @@ import {
   AddressEdit,
   Stepper,
   TreeSelect,
+  Tabbar,
+  TabbarItem,
 } from "vant";
 
 Vue.use(VueI18n);
 Vue.use(NumberKeyboard);
 Vue.use(Button);
 Vue.use(Field);
+Vue.use(Tabbar);
+Vue.use(TabbarItem);
 Vue.use(Col);
 Vue.use(SidebarItem);
 Vue.use(Sidebar);
