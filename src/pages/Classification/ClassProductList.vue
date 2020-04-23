@@ -31,7 +31,7 @@ export default {
   methods: {
     getProductList () {
       productHttp
-        .getProductList({ productType: this.$route.params.type })
+        .getProductList({ productType: this.$route.params.type, detailType: this.$route.query.detailType })
         .then(res => {
           if (res.status === 200) {
             this.data = res.data.response;

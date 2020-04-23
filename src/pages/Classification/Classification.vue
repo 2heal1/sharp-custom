@@ -18,12 +18,16 @@
         v-show="activeKey==index"
         class="detailSort"
       >
-        <div class="title">{{item.typeName}}</div>
+        <div
+          class="title"
+          @click="jumpToOthers(item.productType,'')"
+        >{{item.typeName}}</div>
         <div class="layout">
           <div
             class="pic"
             v-for="(childItem,childIndex) in item.children"
             :key="childIndex"
+            @click="jumpToOthers(item.productType,childItem.detailType)"
           >
             <img v-lazy="childItem.imgUrl">
             <div>{{childItem.name}}</div>
@@ -53,6 +57,9 @@ export default {
       productHttp.getSortTable().then(res => {
         this.data = res.data.response
       })
+    },
+    jumpToOthers (type, detailType) {
+      this.$router.push({ path: '/productList/' + type, query: { detailType: detailType } })
     }
   },
   mounted () {
@@ -90,7 +97,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 30%;
+        width: 28%;
         padding: 0 12px;
         img {
           width: 100%;
