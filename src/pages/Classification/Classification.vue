@@ -6,7 +6,7 @@
       class="sort"
     >
       <van-sidebar-item
-        :title="item.whichType"
+        :title="item.typeName"
         v-for="(item,index) in data"
         :key="index"
       />
@@ -18,7 +18,7 @@
         v-show="activeKey==index"
         class="detailSort"
       >
-        <div class="title">{{item.whichType}}</div>
+        <div class="title">{{item.typeName}}</div>
         <div class="layout">
           <div
             class="pic"

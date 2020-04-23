@@ -310,9 +310,11 @@ export default {
      * @params num 商品数量
      * @params preNum 预定商品数量
      * @params colorType 商品颜色类别
+     * @params productType 分区
      */
     addToShopCar () {
       let params = Object.assign({}, {
+        productType: this.data.productType,
         type: this.data.type,
         id: this.userInfo.id,
         productId: this.data._id,
@@ -342,6 +344,7 @@ export default {
      * @params id 用户id
      * @params preNum 预定商品数量
      * @params colorType 商品颜色类别
+     * @params productType 分区
      */
     addPreToShopCar () {
       if (this.preSelectedNum < 1000) {
@@ -352,6 +355,7 @@ export default {
         return
       }
       let params = Object.assign({}, {
+        productType: this.data.productType,
         type: this.data.type,
         id: this.userInfo.id,
         productId: this.data._id,
@@ -383,9 +387,11 @@ export default {
           query: { redirect: this.$router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
         });
       } else {
-        let cur = this.data._id + this.chooseShop.type
+        let cur = this.data._id + this.chooseShop.type + this.data.type
         if (this.buyNow == '1') {
-          cur = cur + this.data.type
+          cur = cur + 1
+        } else {
+          cur = cur + 0
         }
         let params = {
           productId: cur,
@@ -401,6 +407,7 @@ export default {
           imgUrl: this.chooseShop.imgUrl,
           type: this.data.type,
           colorType: this.chooseShop.type,
+          productType: this.data.productType
         }
         this.saveProductInfo([params])
         sessionStorage.setItem('productInfo', JSON.stringify(params))
