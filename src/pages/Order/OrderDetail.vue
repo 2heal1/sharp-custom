@@ -129,7 +129,7 @@ export default {
       let length2 = String(item.type).length
       let totalLength = length + length2 + 1
       let id = item.productId.slice(0, item.productId.length - totalLength)
-      this.$router.push('/productDetail/' + id)
+      this.$router.push({ path: '/productDetail/' + id, query: { type: item.productType } })
     }
   },
   created () {

@@ -4,7 +4,7 @@
       v-for="(item, index) in data"
       :key="index"
       class="child"
-      @click="jumpToOthers(item._id)"
+      @click="jumpToOthers(item)"
     >
       <img v-lazy="item.imgUrl" />
       <div class="title">{{ item.title }}</div>
@@ -33,8 +33,8 @@ export default {
     }
   },
   methods: {
-    jumpToOthers (id) {
-      this.$router.push({ path: '/productDetail/' + id, query: { type: this.$route.params.type } })
+    jumpToOthers (item) {
+      this.$router.push({ path: '/productDetail/' + item._id, query: { type: item.productType } })
     }
   }
 };

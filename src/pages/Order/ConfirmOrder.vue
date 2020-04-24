@@ -14,7 +14,7 @@
           class="secondLine"
           @click="jumpToAddressList"
         >
-          <div>{{address}}</div>
+          <div>{{address ? address :'暂未填写地址'}}</div>
           <i class="iconfont icon-arrow-right"></i>
         </div>
       </div>
@@ -112,12 +112,13 @@ export default {
       value: 0,
       remark: '',
       data: [],
-      address: '暂未填写地址'
+      address: ''
     }
   },
   methods: {
     ...mapMutations(['saveSelectedAddress']),
     async submitOrder () {
+      let contin = false
       if (!this.address) {
         this.$toast({
           type: 'fail',
@@ -134,14 +135,17 @@ export default {
             showCancelButton: true,
             beforeClose: function (action, done) {
               if (action == 'confirm') {
+                contin = true
                 done()
               } else {
+                done()
                 return;
               }
             }
           });
         }
         try {
+          if (!contin) return
           let data = this.data;
           let curPrice = data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
           let curNum = data.reduce((pre, cur) => pre + cur.num, 0)
