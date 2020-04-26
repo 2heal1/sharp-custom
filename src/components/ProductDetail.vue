@@ -172,7 +172,10 @@
         <!-- 评价标题 -->
         <div class="commentTitle">
           <div class="textSize">{{$t("sapc.product.productComment")}}{{'（'+comment.num+'）'}}</div>
-          <div class="commentViewMore">
+          <div
+            class="commentViewMore"
+            @click="jumpToComment"
+          >
             <div>{{$t('sapc.common.viewMore')}}</div>
             <i class="iconfont icon-arrow-right"></i>
           </div>
@@ -293,6 +296,7 @@ export default {
         .then(res => {
           if (res.status === 200) {
             this.comment = res.data.response;
+            this.comment.data = this.comment.data.slice(0, 2)
           }
         })
         .catch(err => {
@@ -421,6 +425,9 @@ export default {
     changeSelected (e) {
       this.chooseShop = e
       this.selectedNum = 1000
+    },
+    jumpToComment () {
+      this.$router.push('/commentList/' + this.$route.params.id)
     }
   },
   mounted () {

@@ -72,6 +72,14 @@ const routes = [
       ),
   },
   {
+    path: "/commentList/:id",
+    name: "CommentList",
+    component: () =>
+      import(
+        /* webpackChunkName: "productDetail" */ "@/pages/ShoppingCar/CommentList"
+      ),
+  },
+  {
     path: "/order/confirmOrder",
     name: "ConfirmOrder",
     component: () =>
