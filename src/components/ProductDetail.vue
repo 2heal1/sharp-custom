@@ -223,9 +223,15 @@
     </div>
     <!-- 底部导航 -->
     <div class="layoutBottom">
-      <div class="navigation">
-        <i class="iconfont icon-collection"></i>
-        <div>{{ $t("sapc.common.collection") }}</div>
+      <div
+        class="navigation"
+        @click="collectProduct"
+      >
+        <i
+          class="iconfont"
+          :class="{'icon-collection':!collect,'icon-collection-fill':collect}"
+        ></i>
+        <div>{{ collect? $t("sapc.common.hasCollection") : $t("sapc.common.collection")}}</div>
       </div>
       <div class="layoutBottomBtn">
         <van-button
@@ -244,6 +250,7 @@
 </template>
 <script>
 import productHttp from "@/actions/product";
+import userHttp from "@/actions/user";
 import { mapState, mapMutations } from 'vuex'
 export default {
   name: "ProductDetail",
@@ -251,6 +258,9 @@ export default {
     ...mapState(['userInfo']),
     choosePrice () {
       return this.chooseShop.price * this.selectedNum / 1000
+    },
+    collect () {
+      return this.userInfo.collections.includes(this.$route.params.id)
     }
   },
   data () {
@@ -266,7 +276,32 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['saveProductInfo']),
+    ...mapMutations(['saveProductInfo', 'saveUserInfo']),
+    /**
+     * javascript comment
+     * @Author: zhanghang
+     * @Date: 2020-04-26 13:35:14
+     * @Desc: 收藏/取消收藏
+     * @params: type  1收藏 0取消收藏
+     * @params: id  用户id
+     * @params: productId  产品id
+     */
+    collectProduct () {
+      let cur = this.collect == true ? 0 : 1
+      let params = { productId: this.$route.params.id, id: this.userInfo.id, type: cur }
+      userHttp
+        .collectProduct(params)
+        .then(res => {
+          if (res.status === 200) {
+            let tmp = Object.assign({}, this.userInfo, { collections: res.data.response })
+            this.saveUserInfo(tmp)
+            sessionStorage.setItem('userInfo', JSON.stringify(tmp))
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     /** 
      * @Author: zhanghang 
      * @Date: 2020-04-10 11:01:21 
@@ -744,12 +779,15 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 50px;
+      width: 80px;
       flex-shrink: 0;
       align-items: center;
       padding: 0 12px;
       i {
         font-size: 50px;
+      }
+      .icon-collection-fill {
+        color: #ffa600;
       }
     }
     .layoutBottomBtn {

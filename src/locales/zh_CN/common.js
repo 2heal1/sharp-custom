@@ -11,6 +11,7 @@ export const common = {
   receiver: "收货人",
   choosed: "已选",
   collection: "收藏",
+  hasCollection: "已收藏",
   colorType: "颜色分类",
   unitPrice: "购买单价",
   orderPrice: "预定单价",
