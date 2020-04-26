@@ -1,14 +1,17 @@
 <template>
   <div class="classProductListView">
-    <van-tabbar v-model="active" :fixed="false" @change="changeSort">
+    <van-tabbar
+      v-model="active"
+      :fixed="false"
+      @change="changeSort"
+    >
       <van-tabbar-item>综合</van-tabbar-item>
       <van-tabbar-item>销量</van-tabbar-item>
       <van-tabbar-item>上新</van-tabbar-item>
-      <van-tabbar-item @click="changePrice()"
-        >价格<i
+      <van-tabbar-item @click="changePrice()">价格<i
           :class="{ 'icon-arrow-down': isDown, 'icon-arrow-up': !isDown }"
           class="iconfont"
-      /></van-tabbar-item>
+        /></van-tabbar-item>
     </van-tabbar>
     <div class="childView">
       <ProductList :data="data" />
@@ -24,7 +27,7 @@ import moment from "moment";
 export default {
   name: "ClassProductList",
   components: { ProductList },
-  data() {
+  data () {
     return {
       data: [],
       originData: [],
@@ -34,7 +37,7 @@ export default {
     };
   },
   methods: {
-    getProductList() {
+    getProductList () {
       productHttp
         .getProductList({
           productType: this.$route.params.type,
@@ -50,7 +53,7 @@ export default {
           console.log(err);
         });
     },
-    changeSort(type) {
+    changeSort (type) {
       type = Number(type);
       switch (type) {
         case 0:
@@ -60,7 +63,8 @@ export default {
         case 1:
           this.data = this.originData
             .slice(0)
-            .sort((a, b) => a.saleVolume - b.saleVolume);
+            .sort((a, b) => b.saleVolume - a.saleVolume);
+
           this.isactive = false;
           break;
         case 2:
@@ -79,7 +83,7 @@ export default {
           break;
       }
     },
-    changePrice() {
+    changePrice () {
       if (this.isactive) {
         this.isDown = !this.isDown;
         this.data = this.originData
@@ -93,7 +97,7 @@ export default {
       }
     },
   },
-  mounted() {
+  mounted () {
     this.getProductList();
   },
 };
