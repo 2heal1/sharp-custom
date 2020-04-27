@@ -20,6 +20,7 @@ export const common = {
   orderType: "下单类型",
   shopNum: "购买数量",
   preNum: "预定数量",
+  info: "消息通知",
   remark: "备注",
   submitOrder: "提交订单",
   leastOrder: "订单数量最少1000起",

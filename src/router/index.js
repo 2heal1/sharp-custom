@@ -52,6 +52,12 @@ const routes = [
       ),
   },
   {
+    path: "/personal/infoList",
+    name: "InfoList",
+    component: () =>
+      import(/* webpackChunkName: "personal" */ "@/pages/Personal/InfoList"),
+  },
+  {
     path: "/personal/editAddress/:id",
     name: "EditAddress",
     component: () =>

@@ -49,17 +49,13 @@
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>
-      <div class="listDetail">
+      <div
+        class="listDetail"
+        @click="jumpToOtherPages('/personal/infoList')"
+      >
         <div class="title">
           <i class="iconfont icon-infomation"></i>
           <div>消息管理</div>
-        </div>
-        <i class="iconfont icon-arrow-right"></i>
-      </div>
-      <div class="listDetail">
-        <div class="title">
-          <i class="iconfont icon-set"></i>
-          <div>设置</div>
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>

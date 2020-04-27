@@ -97,6 +97,19 @@ function collectProduct(params) {
   return http.post("/api/users/collectProduct", params);
 }
 
+/**
+ * javascript comment
+ * @Author: zhanghang
+ * @Date: 2020-04-26 13:35:14
+ * @Desc: 收藏/取消收藏
+ * @params: type  1收藏 0取消收藏
+ * @params: id  用户id
+ * @params: productId  产品id
+ */
+function getInfos(id) {
+  return http.get("/api/users/getInfos/" + id);
+}
+
 export default {
   addAddress,
   editAddress,
@@ -105,4 +118,5 @@ export default {
   getDefaultAddress,
   getUserInfo,
   collectProduct,
+  getInfos,
 };
