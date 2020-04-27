@@ -64,7 +64,6 @@ export default {
           this.data = this.originData
             .slice(0)
             .sort((a, b) => b.saleVolume - a.saleVolume);
-
           this.isactive = false;
           break;
         case 2:

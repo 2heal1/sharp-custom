@@ -12,7 +12,10 @@
         v-for="(image, index) in preferredProducts"
         :key="index"
       >
-        <img v-lazy="image.imgUrl" />
+        <img
+          v-lazy="image.imgUrl"
+          @click="jumpToOthers(image)"
+        />
       </van-swipe-item>
     </van-swipe>
     <DiscountProducts class="discountProducts" />
@@ -44,6 +47,9 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    jumpToOthers (item) {
+      this.$router.push({ path: '/productDetail/' + item._id, query: { type: item.productType } })
     }
   },
   mounted () {

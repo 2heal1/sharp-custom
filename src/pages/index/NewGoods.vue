@@ -5,6 +5,7 @@
       <div
         span="8"
         class="viewMore"
+        @click="jumpToViewMore"
       >
         {{ $t("sapc.common.viewMore") }}
         <i class="iconfont icon-arrow-right"></i>
@@ -15,14 +16,15 @@
         v-for="(item, index) in newGoodsDta"
         :key="index"
         class="child"
+        @click="jumpToOthers(item)"
       >
         <div class="text">
-          <div>{{ item.date }}</div>
-          <div class="price">¥{{ item.price }}</div>
+          <div>{{ item.create_time }}</div>
+          <div class="price">¥{{ (item.minPrice/1000 ).toFixed(2)}}</div>
         </div>
         <div>
           <img
-            :src="item.imgUrl"
+            v-lazy="item.imgUrl"
             style="width:90px;height:90px"
           />
         </div>
@@ -32,39 +34,33 @@
 </template>
 
 <script>
-import testImg from "@/assets/logo.png";
+import productHttp from '@/actions/product'
+import moment from 'moment'
 export default {
   name: "NewGoods",
   data () {
     return {
-      newGoodsDta: [
-        {
-          date: "03/19",
-          price: "299",
-          imgUrl: testImg
-        },
-        {
-          date: "03/19",
-          price: "299",
-          imgUrl: testImg
-        },
-        {
-          date: "03/19",
-          price: "299",
-          imgUrl: testImg
-        },
-        {
-          date: "03/19",
-          price: "299",
-          imgUrl: testImg
-        },
-        {
-          date: "03/19",
-          price: "299",
-          imgUrl: testImg
-        }
-      ]
+      newGoodsDta: []
     };
+  },
+  methods: {
+    getNewArrivalList () {
+      productHttp.getNewArrivalList().then(res => {
+        this.newGoodsDta = res.data.response.map(item => {
+          item.create_time = moment(item.create_time).format('MM/DD')
+          return item
+        })
+      })
+    },
+    jumpToOthers (item) {
+      this.$router.push({ path: '/productDetail/' + item._id, query: { type: item.productType } })
+    },
+    jumpToViewMore () {
+      this.$router.push({ path: '/productList/' + 6, query: { detailType: '' } })
+    }
+  },
+  mounted () {
+    this.getNewArrivalList()
   }
 };
 </script>
