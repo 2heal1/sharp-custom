@@ -79,6 +79,9 @@ function getNewArrivalList() {
   return http.get("/api/goods/getNewArrivalList");
 }
 
+function searchProduct(params) {
+  return http.get("/api/goods/searchProduct", { params: params });
+}
 export default {
   getProductCommentById,
   addToShopCar,
@@ -91,4 +94,5 @@ export default {
   getProductList,
   getProductInfo,
   getNewArrivalList,
+  searchProduct,
 };

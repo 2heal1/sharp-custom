@@ -13,6 +13,12 @@
           class="iconfont"
         /></van-tabbar-item>
     </van-tabbar>
+    <van-search
+      v-model="searchName"
+      background="rgba(187, 187, 187, 0.12)"
+      placeholder="请输入搜索关键词"
+      @search="onSearch"
+    />
     <div class="childView">
       <ProductList :data="data" />
     </div>
@@ -34,9 +40,29 @@ export default {
       active: 0,
       isactive: false,
       isDown: true,
+      searchName: '',
     };
   },
   methods: {
+    onSearch () {
+      this.searchProduct()
+    },
+    searchProduct () {
+      productHttp
+        .searchProduct({
+          productType: this.$route.params.type,
+          detailType: this.$route.query.detailType,
+          name: this.searchName,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.data = res.data.response;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     getProductList () {
       productHttp
         .getProductList({
@@ -118,6 +144,12 @@ export default {
   }
   /deep/.van-tabbar-item--active {
     color: #fd0956;
+  }
+  /deep/.van-search__content {
+    background: rgba(187, 187, 187, 0.12);
+  }
+  /deep/.van-tabbar-item__text {
+    font-size: 14px;
   }
 }
 </style>

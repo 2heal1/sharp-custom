@@ -489,6 +489,9 @@ export default {
     ::-webkit-scrollbar {
       width: 0 !important;
     }
+    /deep/.van-popup {
+      padding: 12px 0;
+    }
     .swipe {
       width: 100%;
       height: 450px;
@@ -497,6 +500,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        object-fit: cover;
       }
     }
     .discountPrice {
