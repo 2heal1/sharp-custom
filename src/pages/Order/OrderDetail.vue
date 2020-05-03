@@ -32,13 +32,18 @@
         class="product"
         v-for="(item,index) in data.product"
         :key="index"
-        @click="jumpToDetails(item)"
       >
-        <div class="picInfo">
+        <div
+          class="picInfo"
+          @click="jumpToDetails(item,1)"
+        >
           <img :src="item.imgUrl">
           <div>{{item.title}}</div>
         </div>
-        <div class="params">
+        <div
+          class="params"
+          @click="jumpToDetails(item,1)"
+        >
           <div class="colorType">
             <div class="color">{{$t("sapc.common.colorType")}}</div>
             <div>{{item.content}}</div>
@@ -69,7 +74,16 @@
               </div>
             </div>
           </div>
-
+        </div>
+        <div
+          class="commentBtn"
+          v-if="data.status==7 && item.hasComment==false"
+        >
+          <van-tag
+            color="#f2826a"
+            plain
+            @click="jumpToDetails(item,2)"
+          > 评价</van-tag>
         </div>
       </div>
       <div class="remark">
@@ -124,13 +138,22 @@ export default {
         }
       })
     },
-    jumpToDetails (item) {
+    jumpToDetails (item, type) {
       let length = String(item.colorType).length
       let length2 = String(item.type).length
       let totalLength = length + length2 + 1
       let id = item.productId.slice(0, item.productId.length - totalLength)
-      this.$router.push({ path: '/productDetail/' + id, query: { type: item.productType } })
-    }
+      if (type == 1) {
+        this.$router.push({ path: '/productDetail/' + id, query: { type: item.productType } })
+      } else if (type == 2) {
+        this.$router.push({          path: '/order/commentProduct/' + id, query: {
+            colorType: item.content, type: item.productType,
+            completeId: item.productId,
+            orderId: this.data._id
+          }
+        })
+      }
+    },
   },
   created () {
     this.getOrderInfoById()
@@ -285,6 +308,12 @@ export default {
         margin-top: 12px;
       }
     }
+  }
+  .commentBtn {
+    display: flex;
+    margin-top: 20px;
+    justify-content: flex-end;
+    z-index: 999;
   }
 
   //保证ipx以上的底部导航安全距离

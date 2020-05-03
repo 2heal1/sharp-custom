@@ -104,6 +104,12 @@ const routes = [
       import(/* webpackChunkName: "order" */ "@/pages/Order/OrderDetail"),
   },
   {
+    path: "/order/commentProduct/:id",
+    name: "CommentProduct",
+    component: () =>
+      import(/* webpackChunkName: "order" */ "@/pages/Order/CommentProduct"),
+  },
+  {
     path: "/productList/:type",
     name: "ClassProductList",
     component: () =>

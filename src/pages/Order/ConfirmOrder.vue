@@ -118,7 +118,6 @@ export default {
   methods: {
     ...mapMutations(['saveSelectedAddress']),
     async submitOrder () {
-      let contin = false
       if (!this.address) {
         this.$toast({
           type: 'fail',
@@ -135,7 +134,6 @@ export default {
             showCancelButton: true,
             beforeClose: function (action, done) {
               if (action == 'confirm') {
-                contin = true
                 done()
               } else {
                 done()
@@ -145,7 +143,6 @@ export default {
           });
         }
         try {
-          if (!contin) return
           let data = this.data;
           let curPrice = data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
           let curNum = data.reduce((pre, cur) => pre + cur.num, 0)
@@ -181,7 +178,7 @@ export default {
 
     },
     getParams () {
-      this.data = this.productInfo.filter(item => item.now == this.isNow)
+      this.data = Array.isArray(this.productInfo) ? this.productInfo.filter(item => item.now == this.isNow) : [this.productInfo].filter(item => item.now == this.isNow)
     },
     getDefaultAddress () {
       userHttp.getDefaultAddress(this.userInfo.id).then(res => {
@@ -194,7 +191,7 @@ export default {
       this.$router.push('/personal/managerAddress')
     }
   },
-  created () {
+  mounted () {
     this.getParams()
     this.getDefaultAddress()
   },

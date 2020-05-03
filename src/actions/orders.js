@@ -16,6 +16,10 @@ function createOrder(params) {
   return http.post("/api/orders/createOrder", params);
 }
 
+function addComment(params) {
+  return http.post("/api/orders/addComment", params);
+}
+
 function getOrderInfoById(id) {
   return http.get("/api/orders/getOrderInfoById/" + id);
 }
@@ -27,4 +31,5 @@ export default {
   createOrder,
   getOrderInfoById,
   getOrderList,
+  addComment,
 };
