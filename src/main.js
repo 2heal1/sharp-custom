@@ -14,6 +14,7 @@ import {
   Button,
   Field,
   Col,
+  ActionSheet,
   Row,
   Tab,
   Sidebar,
@@ -46,6 +47,7 @@ import {
 
 Vue.use(VueI18n);
 Vue.use(NumberKeyboard);
+Vue.use(ActionSheet);
 Vue.use(Button);
 Vue.use(Field);
 Vue.use(Tabbar);
@@ -82,13 +84,34 @@ Vue.use(Lazyload, {
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({
-  locale: "zh_CN", // 语言标识
+  locale: store.state.language, // 语言标识
   messages: {
     zh_CN: require("./locales/zh_CN/index"), // 中文语言包
     en_US: require("./locales/en_US/index"), // 英文语言包
+    en_ES: require("./locales/en_ES/index"), // 西班牙语言包
   },
 });
-
+router.beforeEach((to, from, next) => {
+  if (!Object.keys(store.state.userInfo).length) {
+    sessionStorage.getItem("token") &&
+      store.commit("saveToken", sessionStorage.getItem("token"));
+    sessionStorage.getItem("userInfo") &&
+      store.commit(
+        "saveUserInfo",
+        JSON.parse(sessionStorage.getItem("userInfo"))
+      );
+    sessionStorage.getItem("productInfo") &&
+      store.commit(
+        "saveProductInfo",
+        JSON.parse(sessionStorage.getItem("productInfo"))
+      );
+    if (sessionStorage.getItem("language")) {
+      store.commit("saveLanguage", sessionStorage.getItem("language"));
+      i18n.locale = sessionStorage.getItem("language");
+    }
+  }
+  next();
+});
 new Vue({
   router,
   i18n,

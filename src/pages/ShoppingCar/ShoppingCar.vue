@@ -37,11 +37,11 @@ export default {
       active: 0,
       data: [
         {
-          title: '预定商品',
+          title: this.$t("sapc.common.preProduct"),
           type: 0
         },
         {
-          title: '现货商品',
+          title: this.$t("sapc.common.nowProduct"),
           type: 1
         },
       ],

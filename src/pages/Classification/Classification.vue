@@ -6,7 +6,7 @@
       class="sort"
     >
       <van-sidebar-item
-        :title="item.typeName"
+        :title="$t(item.typeName)"
         v-for="(item,index) in data"
         :key="index+item.typeName"
       />
@@ -21,7 +21,7 @@
         <div
           class="title"
           @click="jumpToOthers(item.productType,'')"
-        >{{item.typeName}}</div>
+        >{{$t(item.typeName)}}</div>
         <div class="layout">
           <div
             class="pic"
@@ -30,7 +30,7 @@
             @click="jumpToOthers(item.productType,childItem.detailType)"
           >
             <img v-lazy="childItem.imgUrl">
-            <div class="text">{{childItem.name}}</div>
+            <div class="text">{{$t(childItem.name)}}</div>
           </div>
         </div>
       </div>
@@ -101,6 +101,7 @@ export default {
           justify-content: center;
           width: 28%;
           padding: 0 12px;
+          word-break: break-all;
           img {
             width: 144px;
             height: 120px;

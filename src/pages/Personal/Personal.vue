@@ -59,6 +59,16 @@
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>
+      <div
+        class="listDetail"
+        @click="onShow"
+      >
+        <div class="title">
+          <i class="iconfont icon-set"></i>
+          <div>{{$t("sapc.common.setupLanguage")}}</div>
+        </div>
+        <i class="iconfont icon-arrow-right"></i>
+      </div>
       <div class="listDetail">
         <div class="title">
           <i class="iconfont icon-phone"></i>
@@ -71,23 +81,60 @@
         <i class="iconfont icon-arrow-right"></i>
       </div>
     </div>
+    <van-action-sheet
+      :description="$t('sapc.common.description')"
+      v-model="show"
+      :actions="actions"
+      @select="onSelect"
+      :cancel-text="$t('sapc.common.cancel')"
+      @cancel="onCancel"
+    />
   </div>
 </template>
 <script>
 import userHttp from '@/actions/user'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Personal',
   data () {
     return {
-      data: {}
+      data: {},
+      show: false,
+      actions: [
+        { name: '中文' },
+        { name: 'English' },
+        { name: 'Español' },
+      ],
     }
   },
   computed: {
     ...mapState(['userInfo']),
   },
   methods: {
+    ...mapMutations(['saveLanguage']),
+    onShow () {
+      this.show = true
+    },
+    onSelect (action, index) {
+      if (index == 0) {
+        this.$i18n.locale = 'zh_CN'
+        this.saveLanguage('zh_CN')
+        sessionStorage.setItem('language', 'zh_CN')
+      } else if (index == 1) {
+        this.$i18n.locale = 'en_US'
+        this.saveLanguage('en_US')
+        sessionStorage.setItem('language', 'en_US')
+      } else if (index == 2) {
+        this.$i18n.locale = 'en_ES'
+        this.saveLanguage('en_ES')
+        sessionStorage.setItem('language', 'en_ES')
+      }
+      this.show = false
+    },
+    onCancel () {
+      this.show = false;
+    },
     getUserInfo () {
       userHttp.getUserInfo(this.userInfo.id).then(res => {
         if (res.data.success) {
@@ -156,6 +203,9 @@ export default {
           font-size: 54px;
           color: #ff611c;
           margin-bottom: 8px;
+        }
+        div {
+          word-break: break-all;
         }
       }
     }

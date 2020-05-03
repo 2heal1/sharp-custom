@@ -1,4 +1,6 @@
 export const rule = {
-  pleaseInputPhone: "请输入正确11位手机号码",
-  pleaseInputPassword: "密码需要在5-10位字符，且仅限制于字母加数字以及?_"
+  pleaseInputPhone:
+    "Por favor, introduzca el número correcto de teléfono de 11 dígitos",
+  pleaseInputPassword:
+    "La contraseña debe estar en 5 a 10 caracteres, y limitarse a letras y números y?",
 };

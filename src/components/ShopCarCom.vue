@@ -351,6 +351,7 @@ export default {
           color: orange;
           font-weight: 500;
           margin-left: 10px;
+          word-break: break-all;
         }
       }
       .layoutBottomBtn {
