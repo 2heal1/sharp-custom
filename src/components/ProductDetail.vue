@@ -168,7 +168,10 @@
         </div>
       </van-popup>
       <!-- 商品评价 -->
-      <div class="comment">
+      <div
+        class="comment"
+        v-if="!!Object.keys(comment).length"
+      >
         <!-- 评价标题 -->
         <div class="commentTitle">
           <div class="textSize">{{$t("sapc.product.productComment")}}{{'（'+comment.num+'）'}}</div>
@@ -330,7 +333,7 @@ export default {
         .getProductCommentById(this.$route.params.id)
         .then(res => {
           if (res.status === 200) {
-            this.comment = res.data.response;
+            this.comment = res.data.response || {};
             this.comment.data = this.comment.data.slice(0, 2)
           }
         })

@@ -25,7 +25,7 @@
         <div>
           <img
             v-lazy="item.imgUrl"
-            style="width:90px;height:90px"
+            style="width:120px;height:90px;object-fit:cover"
           />
         </div>
       </div>

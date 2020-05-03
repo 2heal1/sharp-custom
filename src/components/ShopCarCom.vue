@@ -338,12 +338,12 @@ export default {
       .totalPrice {
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
         align-items: center;
         flex-grow: 1;
         padding-right: 20px;
+        margin-left: 12px;
         .priceText {
-          font-size: 30px;
+          font-size: 16px;
           color: rgba(0, 0, 0, 0.85);
         }
         .price {

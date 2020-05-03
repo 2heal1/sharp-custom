@@ -8,10 +8,10 @@
       <van-sidebar-item
         :title="item.typeName"
         v-for="(item,index) in data"
-        :key="index"
+        :key="index+item.typeName"
       />
     </van-sidebar>
-    <div>
+    <div class="spClass">
       <div
         v-for="(item,index) in data"
         :key="item._id"
@@ -26,11 +26,11 @@
           <div
             class="pic"
             v-for="(childItem,childIndex) in item.children"
-            :key="childIndex"
+            :key="childIndex+childItem.name"
             @click="jumpToOthers(item.productType,childItem.detailType)"
           >
             <img v-lazy="childItem.imgUrl">
-            <div>{{childItem.name}}</div>
+            <div class="text">{{childItem.name}}</div>
           </div>
         </div>
       </div>
@@ -43,15 +43,13 @@ export default {
   name: 'Classification',
   data () {
     return {
-      activeId: 1,
-      activeIndex: 0,
       activeKey: 0,
       data: []
     };
   },
   methods: {
     onChange (index) {
-      console.log(index)
+      this.activeKey = index
     },
     getSortTable () {
       productHttp.getSortTable().then(res => {
@@ -81,29 +79,39 @@ export default {
     width: 160px;
     height: 100%;
   }
-  .detailSort {
+  .spClass {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    .title {
-      color: gray;
-      font-size: 40px;
-    }
-    .layout {
+    .detailSort {
       display: flex;
-      flex-direction: row;
-      padding: 20px;
-      flex-wrap: wrap;
-      .pic {
+      flex-direction: column;
+      .title {
+        color: gray;
+        font-size: 40px;
+      }
+      .layout {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 28%;
-        padding: 0 12px;
-        img {
-          width: 100%;
-        }
-        .text {
-          color: gray;
+        flex-direction: row;
+        padding: 20px;
+        flex-wrap: wrap;
+        .pic {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 28%;
+          padding: 0 12px;
+          img {
+            width: 144px;
+            height: 120px;
+            object-fit: cover;
+          }
+          .text {
+            color: gray;
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+          }
         }
       }
     }
