@@ -5,10 +5,10 @@
       :fixed="false"
       @change="changeSort"
     >
-      <van-tabbar-item>综合</van-tabbar-item>
-      <van-tabbar-item>销量</van-tabbar-item>
-      <van-tabbar-item>上新</van-tabbar-item>
-      <van-tabbar-item @click="changePrice()">价格<i
+      <van-tabbar-item>{{$t("sapc.common.sub")}}</van-tabbar-item>
+      <van-tabbar-item>{{$t("sapc.common.sume")}}</van-tabbar-item>
+      <van-tabbar-item>{{$t("sapc.common.news")}}</van-tabbar-item>
+      <van-tabbar-item @click="changePrice()">{{$t("sapc.common.price")}}<i
           :class="{ 'icon-arrow-down': isDown, 'icon-arrow-up': !isDown }"
           class="iconfont"
         /></van-tabbar-item>
@@ -16,7 +16,7 @@
     <van-search
       v-model="searchName"
       background="rgba(187, 187, 187, 0.12)"
-      placeholder="请输入搜索关键词"
+      :placeholder="$t('sapc.common.pleaseInputKeyWord')"
       @search="onSearch"
     />
     <div class="childView">

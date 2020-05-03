@@ -5,7 +5,7 @@
       @click="handleClick"
     >
       <van-tab
-        title="登陆"
+        :title="$t('sapc.loginRegister.login')"
         name="first"
       >
         <van-form
@@ -15,14 +15,14 @@
           @submit="submitForm"
         >
           <van-field
-            label="手机号"
+            :label="$t('sapc.loginRegister.phone')"
             type="number"
             :maxlength="11"
             v-model="ruleForm.phone"
             :rules="myRules.phoneRule"
           />
           <van-field
-            label="密码"
+            :label="$t('sapc.loginRegister.password')"
             type="password"
             v-model="ruleForm.password"
             :rules="myRules.passwordRule"
@@ -32,12 +32,12 @@
               type="default"
               size="large"
               native-type="submit"
-            >登录</van-button>
+            >{{$t("sapc.loginRegister.login")}}</van-button>
           </div>
         </van-form>
       </van-tab>
       <van-tab
-        title="注册"
+        :title="$t('sapc.loginRegister.register')"
         name="second"
       >
         <register />

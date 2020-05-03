@@ -14,7 +14,7 @@
           class="secondLine"
           @click="jumpToAddressList"
         >
-          <div>{{address ? address :'暂未填写地址'}}</div>
+          <div>{{address ? address :$t("sapc.order.noAddress")}}</div>
           <i class="iconfont icon-arrow-right"></i>
         </div>
       </div>

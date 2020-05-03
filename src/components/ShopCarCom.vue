@@ -5,7 +5,7 @@
       class="emptyData"
     >
       <i class="iconfont icon-empty"></i>
-      暂无数据
+      {{$t("sapc.common.noData")}}
     </div>
     <div
       class="tmop"
@@ -71,7 +71,7 @@
             <van-button
               @click="onDelete(index,item.productId)"
               square
-              text="删除"
+              :text="$t('sapc.common.delete')"
               type="danger"
               class="delete-button"
             />

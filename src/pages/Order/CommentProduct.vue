@@ -15,17 +15,17 @@
         v-model="message"
         rows="2"
         autosize
-        label="商品评价"
+        :label="$t('sapc.order.comment')"
         type="textarea"
         maxlength="50"
-        placeholder="请输入评价"
+        :placeholder="$t('sapc.order.pleaseInputComment')"
         show-word-limit
       />
       <div class="commentBtn">
         <van-button
           type="default"
           @click="addComment"
-        >立即评价</van-button>
+        >{{$t('sapc.order.commentNow')}}</van-button>
       </div>
     </div>
   </div>

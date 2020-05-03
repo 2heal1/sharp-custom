@@ -6,26 +6,35 @@
     @submit="submitForm"
     class="registItem"
   >
-    <van-field label="用户名" prop="username" v-model="ruleForm.username" />
     <van-field
-      label="手机号"
+      :label="$t('sapc.loginRegister.userName')"
+      prop="username"
+      v-model="ruleForm.username"
+    />
+    <van-field
+      :label="$t('sapc.loginRegister.phone')"
       type="number"
       :maxlength="11"
       v-model="ruleForm.phone"
       :rules="myRules.phoneRule"
     />
     <van-field
-      label="密码"
+      :label="$t('sapc.loginRegister.password')"
       prop="password"
       type="password"
       v-model="ruleForm.password"
       :rules="myRules.passwordRule"
     />
-    <van-field label="邮箱" prop="email" />
+    <van-field
+      :label="$t('sapc.loginRegister.email')"
+      prop="email"
+    />
     <div class="btn">
-      <van-button type="default" size="large" native-type="submit"
-        >注册</van-button
-      >
+      <van-button
+        type="default"
+        size="large"
+        native-type="submit"
+      > {{$t("sapc.loginRegister.register")}}</van-button>
     </div>
   </van-form>
 </template>
@@ -33,7 +42,7 @@
 import rules from "@/utils/rule";
 import loginHttp from "@/actions/login";
 export default {
-  data() {
+  data () {
     return {
       rules,
       myRules: {
@@ -60,13 +69,13 @@ export default {
     };
   },
   methods: {
-    onFailed(errorInfo) {
+    onFailed (errorInfo) {
       console.log("failed", errorInfo);
     },
     //选项卡切换
-    handleClick() {},
+    handleClick () { },
     //提交表单
-    submitForm() {
+    submitForm () {
       loginHttp
         .registe({
           username: this.ruleForm.username,

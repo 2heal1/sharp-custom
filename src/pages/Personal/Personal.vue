@@ -13,28 +13,28 @@
           @click="jumpToOtherPages({path:'/order/orderList',query:{status:2}})"
         >
           <i class="iconfont icon-goods-send"></i>
-          <div dot>待发货</div>
+          <div dot>{{$t("sapc.common.toBeDelivered")}}</div>
         </div>
         <div
           class="detail"
           @click="jumpToOtherPages({path:'/order/orderList',query:{status:4}})"
         >
           <i class="iconfont icon-goods-received"></i>
-          <div>待收货</div>
+          <div>{{$t("sapc.common.toBeRecvied")}}</div>
         </div>
         <div
           class="detail"
           @click="jumpToOtherPages({path:'/order/orderList',query:{status:7}})"
         >
           <i class="iconfont icon-order-fill"></i>
-          <div>交易完成</div>
+          <div>{{$t("sapc.common.complete")}}</div>
         </div>
         <div
           class="detail"
           @click="jumpToOtherPages({path:'/order/orderList',query:{status:0}})"
         >
           <i class="iconfont icon-all-fill"></i>
-          <div>全部订单</div>
+          <div>{{$t("sapc.common.allOrders")}}</div>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
       >
         <div class="title">
           <i class="iconfont icon-map"></i>
-          <div>地址管理</div>
+          <div>{{$t("sapc.common.addressManage")}}</div>
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>
@@ -55,7 +55,7 @@
       >
         <div class="title">
           <i class="iconfont icon-infomation"></i>
-          <div>消息管理</div>
+          <div>{{$t("sapc.common.messageManage")}}</div>
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>
@@ -66,7 +66,7 @@
             <a
               style=" color: rgba(0, 0, 0, 0.8);"
               href='tel:18266915978'
-            >联系商家</a></div>
+            >{{$t("sapc.common.contactBussiness")}}</a></div>
         </div>
         <i class="iconfont icon-arrow-right"></i>
       </div>

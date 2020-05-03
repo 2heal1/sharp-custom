@@ -4,7 +4,7 @@
       v-if="!data.length"
       class="noData"
     >
-      暂无数据
+      {{$t("sapc.common.noData")}}
     </div>
     <div
       v-else

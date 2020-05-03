@@ -4,11 +4,11 @@
       <!-- 订单状态 -->
       <div class="orderStatus">
         <div class="status">
-          <div>订单状态</div>
+          <div>{{$t("sapc.order.orderStatus")}}</div>
           <div :style="{color:data.status==9 ? 'gray' : 'green'}"> {{orderStatus[data.status]}}</div>
         </div>
         <div class="statusTime">
-          <div>最近更新订单时间</div>
+          <div>{{$t("sapc.order.latestOrderTime")}}</div>
           <div> {{data.lastModifiedTime}}</div>
         </div>
       </div>
@@ -83,7 +83,7 @@
             color="#f2826a"
             plain
             @click="jumpToDetails(item,2)"
-          > 评价</van-tag>
+          > {{$t("sapc.order.comment2")}}</van-tag>
         </div>
       </div>
       <div class="remark">
@@ -94,11 +94,11 @@
       <div class="totalBottom">
 
         <div class="status">
-          <div>总价格</div>
+          <div>{{$t("sapc.order.totalPrice2")}}</div>
           <div> {{'¥ '+data.totalPrice}}</div>
         </div>
         <div class="statusTime">
-          <div>订单创建时间</div>
+          <div>{{$t("sapc.order.orderTime")}}</div>
           <div> {{data.create_time}}</div>
         </div>
       </div>

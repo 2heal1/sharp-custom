@@ -5,7 +5,7 @@
       class="emptyData"
     >
       <i class="iconfont icon-empty"></i>
-      暂无数据
+      {{$t("sapc.common.noData")}}
     </div>
     <!-- 列表 -->
     <div

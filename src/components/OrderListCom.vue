@@ -5,7 +5,7 @@
       class="emptyData"
     >
       <i class="iconfont icon-empty"></i>
-      暂无数据
+      {{$t("sapc.common.noData")}}
     </div>
     <div v-else>
       <div
@@ -32,7 +32,7 @@
           <div v-if="isNow">
             <div class="numType">
               <div class="num">
-                <div class="color">总价</div>
+                <div class="color">{{$t("sapc.common.totalPrice")}}</div>
                 <div>{{'¥ '+item.totalPrice}}</div>
               </div>
             </div>
