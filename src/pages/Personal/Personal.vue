@@ -13,7 +13,7 @@
           @click="jumpToOtherPages({path:'/order/orderList',query:{status:2}})"
         >
           <i class="iconfont icon-goods-send"></i>
-          <div>待发货</div>
+          <div dot>待发货</div>
         </div>
         <div
           class="detail"

@@ -54,9 +54,14 @@ export default {
     flex-direction: column;
     border-radius: 12px;
     background-color: white;
+    img {
+      object-fit: cover;
+      height: 580px;
+    }
     .title {
       padding-left: 4px;
       font-size: 16px;
+      font-weight: 500;
       white-space: nowrap;
       color: dimgray;
       overflow: hidden;
