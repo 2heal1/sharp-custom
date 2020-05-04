@@ -18,6 +18,8 @@ import {
   Row,
   Tab,
   Sidebar,
+  DropdownMenu,
+  DropdownItem,
   SidebarItem,
   Tabs,
   Form,
@@ -62,6 +64,8 @@ Vue.use(SwipeCell);
 Vue.use(CheckboxGroup);
 Vue.use(RadioGroup);
 Vue.use(Radio);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 Vue.use(Loading);
 Vue.use(Row);
 Vue.use(Tab);

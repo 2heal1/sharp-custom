@@ -43,6 +43,13 @@
         <register />
       </van-tab>
     </van-tabs>
+    <van-dropdown-menu class="chooseLanguage">
+      <van-dropdown-item
+        v-model="value1"
+        :options="option1"
+        @change="onChange"
+      />
+    </van-dropdown-menu>
   </div>
 </template>
 <script>
@@ -58,6 +65,12 @@ export default {
     return {
       routeQuery: "",
       rules,
+      option1: [
+        { text: '中文', value: 0 },
+        { text: 'English', value: 1 },
+        { text: 'Español', value: 2 },
+      ],
+      value1: 0,
       myRules: {
         phoneRule: [
           {
@@ -84,9 +97,24 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["saveToken", "saveUserInfo"]),
+    ...mapMutations(["saveToken", "saveUserInfo", 'saveLanguage']),
     onFailed (errorInfo) {
       console.log("failed", errorInfo);
+    },
+    onChange (index) {
+      if (index == 0) {
+        this.$i18n.locale = 'zh_CN'
+        this.saveLanguage('zh_CN')
+        sessionStorage.setItem('language', 'zh_CN')
+      } else if (index == 1) {
+        this.$i18n.locale = 'en_US'
+        this.saveLanguage('en_US')
+        sessionStorage.setItem('language', 'en_US')
+      } else if (index == 2) {
+        this.$i18n.locale = 'en_ES'
+        this.saveLanguage('en_ES')
+        sessionStorage.setItem('language', 'en_ES')
+      }
     },
     //选项卡切换
     handleClick () { },
@@ -134,6 +162,9 @@ export default {
   .btn {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
+  }
+  .chooseLanguage {
     margin-top: 20px;
   }
 }
