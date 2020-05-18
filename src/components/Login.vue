@@ -70,6 +70,11 @@ export default {
         { text: 'English', value: 1 },
         { text: 'Español', value: 2 },
       ],
+      languageObj: {
+        'zh_CN': 0,
+        'en_US': 1,
+        'en_ES': 2,
+      },
       value1: 0,
       myRules: {
         phoneRule: [
@@ -153,6 +158,10 @@ export default {
   },
   mounted () {
     this.routeQuery = this.$route.query;
+    let cur = sessionStorage.getItem('language')
+    if (cur) {
+      this.value1 = this.languageObj[cur]
+    }
   }
 };
 </script>

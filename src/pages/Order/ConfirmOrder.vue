@@ -181,11 +181,15 @@ export default {
       this.data = Array.isArray(this.productInfo) ? this.productInfo.filter(item => item.now == this.isNow) : [this.productInfo].filter(item => item.now == this.isNow)
     },
     getDefaultAddress () {
-      userHttp.getDefaultAddress(this.userInfo.id).then(res => {
-        if (res.data.success) {
-          this.address = res.data.response.province + res.data.response.city + res.data.response.county + res.data.response.addressDetail
-        }
-      })
+      if (sessionStorage.getItem('selectedAddress')) {
+        this.address = JSON.parse(sessionStorage.getItem('selectedAddress')).address
+      } else {
+        userHttp.getDefaultAddress(this.userInfo.id).then(res => {
+          if (res.data.success) {
+            this.address = res.data.response.province + res.data.response.city + res.data.response.county + res.data.response.addressDetail
+          }
+        })
+      }
     },
     jumpToAddressList () {
       this.$router.push('/personal/managerAddress')
@@ -194,19 +198,7 @@ export default {
   mounted () {
     this.getParams()
     this.getDefaultAddress()
-  },
-  beforeRouteEnter (to, from, next) {
-    if (from.name == 'ManagerAddress' && sessionStorage.getItem('selectedAddress')) {
-      next(vm => {
-        vm.address = JSON.parse(sessionStorage.getItem('selectedAddress'))
-        vm.$nextTick(function () {
-          vm.saveSelectedAddress(JSON.parse(sessionStorage.getItem('selectedAddress')))
-        })
-      })
-    } else {
-      next()
-    }
-  },
+  }
 }
 </script>
 <style lang="less" scoped>

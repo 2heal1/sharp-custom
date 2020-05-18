@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width:100%">
     <van-address-list
       v-model="chosenAddressId"
       :list="list"
@@ -43,7 +43,7 @@ export default {
   methods: {
     ...mapMutations(['saveSelectedAddress']),
     onSelect (item) {
-      if (this.routeInfo.fullPath !== '/personal') {
+      if (this.routeInfo.fullPath.indexOf('/personal') == -1) {
         this.saveSelectedAddress(item)
         sessionStorage.setItem('selectedAddress', JSON.stringify(item))
         this.$router.go(-1)

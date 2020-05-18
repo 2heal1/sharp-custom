@@ -28,6 +28,7 @@
     <van-field
       :label="$t('sapc.loginRegister.email')"
       prop="email"
+      v-model="ruleForm.email"
     />
     <div class="btn">
       <van-button
@@ -45,26 +46,34 @@ export default {
   data () {
     return {
       rules,
+      languageObj: {
+        'zh_CN': 0,
+        'en_US': 1,
+        'en_ES': 2,
+      },
       myRules: {
         phoneRule: [
           {
             ...rules.phoneRule,
             required: true,
-            trigger: "onBlur"
+            trigger: "onBlur",
+            message: this.$t("sapc.rule.pleaseInputPhone")
           }
         ],
         passwordRule: [
           {
             ...rules.passwordRule,
             required: true,
-            trigger: "onBlur"
+            trigger: "onBlur",
+            message: this.$t("sapc.rule.pleaseInputPassword")
           }
         ]
       },
       activeName: "first",
       ruleForm: {
         phone: "",
-        password: ""
+        password: "",
+        email: "",
       }
     };
   },
@@ -99,6 +108,12 @@ export default {
             });
           }
         });
+    }
+  },
+  mounted () {
+    let cur = sessionStorage.getItem('language')
+    if (cur) {
+      this.value1 = this.languageObj[cur]
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width:100%">
     <van-address-edit
       :area-list="areaList"
       show-postal

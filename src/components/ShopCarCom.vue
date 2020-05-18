@@ -46,7 +46,12 @@
                       <div>{{'¥ '+(item.discount*item.price/1000).toFixed(2)}}</div>
                     </div>
                     <div>
-                      <van-stepper v-model="item.num" />
+                      <van-stepper
+                        @change="(e)=>changeNum(item.left,e)"
+                        v-model="item.num"
+                        :max="item.left"
+                        min="1000"
+                      />
                     </div>
                   </div>
                 </div>
@@ -57,7 +62,12 @@
                       <div>{{'¥ '+(item.discount*item.price/1000).toFixed(2)}}</div>
                     </div>
                     <div>
-                      <van-stepper v-model="item.num" />
+                      <van-stepper
+                        @change="(e)=>changeNum(item.left,e)"
+                        v-model="item.num"
+                        :max="item.left"
+                        min="1000"
+                      />
                     </div>
                   </div>
                 </div>
@@ -148,6 +158,22 @@ export default {
     },
     selectAll (checked) {
       this.computedSelected = checked
+    },
+    changeNum (left, val) {
+      if (val > left) {
+        this.$toast({
+          type: 'fail',
+          message: this.$t('超出库存')
+        });
+        return
+      }
+      if (val < 1000) {
+        this.$toast({
+          type: 'fail',
+          message: this.$t('下单数量至少大于1000')
+        });
+        return
+      }
     },
     editShopCar (productId, num) {
       let params = { id: this.$store.userInfo.id, productId, num }

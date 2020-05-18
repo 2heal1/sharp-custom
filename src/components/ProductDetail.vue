@@ -125,11 +125,7 @@
           >
             <div class="chooseNumText">{{$t("sapc.common.shopNum")}}</div>
             <div>
-              <van-stepper
-                v-model="selectedNum"
-                min="1000"
-                :max="chooseShop.left"
-              />
+              <van-stepper v-model="selectedNum" />
             </div>
           </div>
           <!-- 预定数量 -->
@@ -140,10 +136,7 @@
           >
             <div class="chooseNumText">{{$t("sapc.common.preNum")}}</div>
             <div>
-              <van-stepper
-                v-model="preSelectedNum"
-                min="0"
-              />
+              <van-stepper v-model="preSelectedNum" />
             </div>
           </div>
           <!-- 备注 -->
@@ -354,6 +347,13 @@ export default {
      * @params productType 分区
      */
     addToShopCar () {
+      if (this.selectedNum > this.chooseShop.left) {
+        this.$toast({
+          type: 'fail',
+          message: this.$t('超出库存')
+        });
+        return
+      }
       let params = Object.assign({}, {
         productType: this.data.productType,
         type: this.data.type,
@@ -395,6 +395,13 @@ export default {
         });
         return
       }
+      if (this.preSelectedNum > this.chooseShop.left) {
+        this.$toast({
+          type: 'fail',
+          message: this.$t('超出库存')
+        });
+        return
+      }
       let params = Object.assign({}, {
         productType: this.data.productType,
         type: this.data.type,
@@ -428,6 +435,27 @@ export default {
           query: { redirect: this.$router.currentRoute.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
         });
       } else {
+        if (this.selectedNum > this.chooseShop.left) {
+          this.$toast({
+            type: 'fail',
+            message: this.$t('超出库存')
+          });
+          return
+        }
+        if (this.buyNow == '0' && this.preSelectedNum < 1000) {
+          this.$toast({
+            type: 'fail',
+            message: this.$t('sapc.common.preOrder')
+          });
+          return
+        }
+        if (this.buyNow == '1' && this.selectedNum < 1000) {
+          this.$toast({
+            type: 'fail',
+            message: this.$t('下单数量至少大于1000')
+          });
+          return
+        }
         let cur = this.data._id + this.chooseShop.type + this.data.type
         if (this.buyNow == '1') {
           cur = cur + 1

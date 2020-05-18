@@ -1,18 +1,20 @@
 <template>
   <div class="classProductListView">
-    <van-tabbar
-      v-model="active"
-      :fixed="false"
-      @change="changeSort"
-    >
-      <van-tabbar-item>{{$t("sapc.common.sub")}}</van-tabbar-item>
-      <van-tabbar-item>{{$t("sapc.common.sume")}}</van-tabbar-item>
-      <van-tabbar-item>{{$t("sapc.common.news")}}</van-tabbar-item>
-      <van-tabbar-item @click="changePrice()">{{$t("sapc.common.price")}}<i
-          :class="{ 'icon-arrow-down': isDown, 'icon-arrow-up': !isDown }"
-          class="iconfont"
-        /></van-tabbar-item>
-    </van-tabbar>
+    <div style="position:relative">
+      <van-tabbar
+        v-model="active"
+        :fixed="false"
+        @change="changeSort"
+      >
+        <van-tabbar-item>{{$t("sapc.common.sub")}}</van-tabbar-item>
+        <van-tabbar-item>{{$t("sapc.common.sume")}}</van-tabbar-item>
+        <van-tabbar-item>{{$t("sapc.common.news")}}</van-tabbar-item>
+        <van-tabbar-item @click="changePrice()">{{$t("sapc.common.price")}}<i
+            :class="{ 'icon-arrow-down': isDown, 'icon-arrow-up': !isDown }"
+            class="iconfont"
+          /></van-tabbar-item>
+      </van-tabbar>
+    </div>
     <van-search
       v-model="searchName"
       background="rgba(187, 187, 187, 0.12)"
@@ -111,9 +113,15 @@ export default {
     changePrice () {
       if (this.isactive) {
         this.isDown = !this.isDown;
-        this.data = this.originData
-          .slice(0)
-          .sort((a, b) => a.minPrice - b.minPrice);
+        if (this.isDown) {
+          this.data = this.originData
+            .slice(0)
+            .sort((a, b) => b.minPrice - a.minPrice);
+        } else {
+          this.data = this.originData
+            .slice(0)
+            .sort((a, b) => a.minPrice - b.minPrice);
+        }
       } else {
         this.isactive = true;
         this.data = this.originData
@@ -141,6 +149,9 @@ export default {
   /deep/.van-tabbar {
     background: rgba(187, 187, 187, 0.12);
     font-size: 28px;
+  }
+  /deep/.van-tabbar-item {
+    height: 100%;
   }
   /deep/.van-tabbar-item--active {
     color: #fd0956;
