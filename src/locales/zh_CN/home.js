@@ -1,5 +1,5 @@
 export const home = {
-  newArrival: "oferta de nuevos productos",
-  preferredProducts: "Selected Commodities",
-  discountProducts: "descuentos por tiempo limitado",
+  newArrival: "最新发售",
+  preferredProducts: "精选商品",
+  discountProducts: "折扣商品",
 };
