@@ -25,7 +25,7 @@ export default {
         .getDiscountProducts()
         .then(res => {
           if (res.status === 200) {
-            this.discountList = res.data.response;
+            this.discountList = res.data.response.filter(item => !!item.left);
           }
         })
         .catch(err => {

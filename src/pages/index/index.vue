@@ -41,7 +41,7 @@ export default {
         .getPreferredProductList()
         .then(res => {
           if (res.status === 200) {
-            this.preferredProducts = res.data.response;
+            this.preferredProducts = res.data.response.filter(item => !!item.left);
           }
         })
         .catch(err => {

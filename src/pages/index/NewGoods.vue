@@ -49,7 +49,7 @@ export default {
         this.newGoodsDta = res.data.response.map(item => {
           item.create_time = moment(item.create_time).format('MM/DD')
           return item
-        })
+        }).filter(item => !!item.left)
       })
     },
     jumpToOthers (item) {

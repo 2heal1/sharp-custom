@@ -73,8 +73,8 @@ export default {
         })
         .then((res) => {
           if (res.status === 200) {
-            this.originData = JSON.parse(JSON.stringify(res.data.response));
-            this.data = res.data.response;
+            this.originData = JSON.parse(JSON.stringify(res.data.response)).filter(item => !!item.left);
+            this.data = res.data.response.filter(item => !!item.left);
           }
         })
         .catch((err) => {
