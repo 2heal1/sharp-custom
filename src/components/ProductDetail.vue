@@ -76,7 +76,7 @@
             >
             <div class="chooseInfo">
               <div class="choosePrice">{{choosePrice}}</div>
-              <div>{{$t("sapc.common.left")}}{{chooseShop.left}} </div>
+              <div v-if="buyNow==1">{{$t("sapc.common.left")}}{{chooseShop.left}} </div>
               <div>{{$t("sapc.common.choosed")}}{{':"'+chooseShop.content+'"'}}</div>
             </div>
           </div>
@@ -268,11 +268,22 @@ export default {
       selectedNum: 1000,
       preSelectedNum: 0,
       buyNow: "1",
-      picDetail: null
+      picDetail: null,
+      selectLeft: []
     }
   },
   methods: {
     ...mapMutations(['saveProductInfo', 'saveUserInfo']),
+    /** 
+     * @Author: zhanghang 
+     * @Date: 2020-05-20 15:54:55 
+     * @Desc: 获取个人购物车 
+     */
+    getShopCar () {
+      productHttp.getShopCar({ id: this.userInfo.id }).then(res => {
+        this.selectLeft = res.data.response
+      })
+    },
     /**
      * javascript comment
      * @Author: zhanghang
@@ -347,7 +358,13 @@ export default {
      * @params productType 分区
      */
     addToShopCar () {
-      if (this.selectedNum > this.chooseShop.left) {
+      let cur = this.data._id + this.chooseShop.type + this.data.type + 1
+      let curIndex = this.selectLeft.findIndex(item => item.productId == cur)
+      let selectNum = this.selectedNum
+      if (curIndex !== -1) {
+        selectNum = selectNum + this.selectLeft[curIndex].num
+      }
+      if (selectNum > this.chooseShop.left) {
         this.$toast({
           type: 'fail',
           message: this.$t('超出库存')
@@ -499,6 +516,7 @@ export default {
   mounted () {
     this.getDiscountProductInfoById()
     this.getProductCommentById()
+    this.getShopCar()
   }
 };
 </script>
