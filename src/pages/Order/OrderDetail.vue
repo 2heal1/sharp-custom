@@ -5,7 +5,7 @@
       <div class="orderStatus">
         <div class="status">
           <div>{{$t("sapc.order.orderStatus")}}</div>
-          <div :style="{color:data.status==9 ? 'gray' : 'green'}"> {{orderStatus[data.status]}}</div>
+          <div :style="{color:data.status==8 ? 'gray' : 'green'}"> {{orderStatus[data.status]}}</div>
         </div>
         <div class="statusTime">
           <div>{{$t("sapc.order.latestOrderTime")}}</div>
@@ -146,7 +146,8 @@ export default {
       if (type == 1) {
         this.$router.push({ path: '/productDetail/' + id, query: { type: item.productType } })
       } else if (type == 2) {
-        this.$router.push({          path: '/order/commentProduct/' + id, query: {
+        this.$router.push({
+          path: '/order/commentProduct/' + id, query: {
             colorType: item.content, type: item.productType,
             completeId: item.productId,
             orderId: this.data._id
