@@ -139,10 +139,7 @@ export default {
       })
     },
     jumpToDetails (item, type) {
-      let length = String(item.colorType).length
-      let length2 = String(item.type).length
-      let totalLength = length + length2 + 1
-      let id = item.productId.slice(0, item.productId.length - totalLength)
+      let id = item.productId.slice(0, -3)
       if (type == 1) {
         this.$router.push({ path: '/productDetail/' + id, query: { type: item.productType } })
       } else if (type == 2) {

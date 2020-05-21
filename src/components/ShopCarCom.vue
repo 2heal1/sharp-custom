@@ -65,7 +65,6 @@
                       <van-stepper
                         @change="(e)=>changeNum(item.left,e)"
                         v-model="item.num"
-                        :max="item.left"
                         min="1000"
                       />
                     </div>
@@ -160,7 +159,7 @@ export default {
       this.computedSelected = checked
     },
     changeNum (left, val) {
-      if (val > left) {
+      if (val > left && this.isNow) {
         this.$toast({
           type: 'fail',
           message: this.$t('超出库存')
@@ -220,10 +219,10 @@ export default {
       });
     },
     jumpToOthers (item) {
-      let length = String(item.colorType).length
-      let length2 = String(item.type).length
-      let totalLength = length + length2 + 1
-      let id = item.productId.slice(0, item.productId.length - totalLength)
+      // let length = String(item.colorType).length
+      // let length2 = String(item.type).length
+      // let totalLength = length + length2 + 1
+      let id = item.productId.slice(0, -3)
       this.$router.push({ path: '/productDetail/' + id, query: { type: item.productType } })
     },
     submitOrder () {
@@ -305,6 +304,7 @@ export default {
           padding: 20px;
           flex-direction: column;
           margin-bottom: 20px;
+          flex-grow: 1;
           .picInfo {
             display: flex;
             flex-direction: row;

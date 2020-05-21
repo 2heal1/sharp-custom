@@ -71,6 +71,18 @@ export default {
               this.list.unshift(cur)
             }
             this.chosenAddressId = this.list[0].id
+            if (Object.keys(this.$route.query).length) {
+              let cur = sessionStorage.getItem('selectedAddress')
+              if (cur) {
+                cur = JSON.parse(cur)
+                this.list.forEach((item) => {
+                  if (cur.id == item.id) {
+                    this.chosenAddressId = item.id
+                  }
+                })
+              }
+
+            }
           }
         })
         .catch(err => {

@@ -82,7 +82,7 @@ export default {
   mounted () {
     let cur = Object.keys(this.$route.query).length ? Number(this.$route.query.status) : 0
     this.active = this.data.findIndex(item => item.status == cur)
-    this.getOrderList(this.active)
+    this.getOrderList(cur)
   }
 }
 </script>

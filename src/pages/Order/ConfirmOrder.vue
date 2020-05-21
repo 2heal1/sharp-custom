@@ -127,21 +127,6 @@ export default {
           }
         });
       } else {
-        if (!this.isNow) {
-          this.$dialog.alert({
-            message: '该订单为预定订单，是否确认下单？',
-            showConfirmButton: true,
-            showCancelButton: true,
-            beforeClose: function (action, done) {
-              if (action == 'confirm') {
-                done()
-              } else {
-                done()
-                return;
-              }
-            }
-          });
-        }
         try {
           let data = this.data;
           let curPrice = data.reduce((pre, cur) => pre + cur.price * cur.discount, 0)
@@ -192,7 +177,12 @@ export default {
       }
     },
     jumpToAddressList () {
-      this.$router.push('/personal/managerAddress')
+      this.$router.push({
+        path: '/personal/managerAddress',
+        query: {
+          from: 'confim'
+        }
+      })
     }
   },
   mounted () {
