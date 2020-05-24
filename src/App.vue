@@ -38,7 +38,13 @@
         class="navigation"
         @click="jumpToOtherPages('personal')"
       >
-        <i :class="[navigationClass.iconfont, navigationClass.personalClass]"></i>
+        <div>
+          <i :class="[navigationClass.iconfont, navigationClass.personalClass]"></i>
+          <span
+            v-if="isVisible"
+            class="redPoint"
+          ></span>
+        </div>
         <div>{{ $t("sapc.common.personal") }}</div>
       </div>
     </div>
@@ -46,9 +52,14 @@
 </template>
 
 <script>
+import userHttp from '@/actions/user'
+import { mapMutations } from 'vuex'
 export default {
   name: "App",
   computed: {
+    isVisible () {
+      return this.$store.state.hasNewInfos
+    },
     navigationClass: {
       get: function name () {
         let pages = this.$route.path.split("/")[1];
@@ -88,9 +99,25 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['saveInfo']),
     jumpToOtherPages (pages) {
       this.$router.push({ path: '/' + pages });
-    }
+    },
+    getInfostatus () {
+      userHttp
+        .getInfostatus(this.$store.state.userInfo.id)
+        .then(res => {
+          this.saveInfo(res.data.response)
+          console.log(res.data.response)
+          sessionStorage.setItem('info', res.data.response)
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+  },
+  mounted () {
+    this.getInfostatus()
   }
 };
 </script>
@@ -112,6 +139,19 @@ export default {
     flex-shrink: 0;
     flex-direction: row;
     justify-content: space-between;
+    .redPoint {
+      display: inline-block;
+      text-align: center;
+      font-size: 0.1em;
+      color: #fff;
+      background: red;
+      height: 12px;
+      width: 12px;
+      border-radius: 16px;
+      position: absolute;
+      bottom: 82px;
+      right: 8px;
+    }
     .navigation {
       display: flex;
       flex-direction: column;

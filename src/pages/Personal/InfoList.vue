@@ -37,14 +37,17 @@
 </template>
 <script>
 import userHttp from "@/actions/user";
+import { mapMutations } from 'vuex'
 export default {
   name: 'InfoList',
+
   data () {
     return {
       info: {}
     }
   },
   methods: {
+    ...mapMutations(['saveUserInfo', 'saveInfo']),
     /** 
  * @Author: zhanghang 
  * @Date: 2020-04-10 11:01:34 
@@ -62,9 +65,25 @@ export default {
           console.log(err);
         });
     },
+    changeInfoStatus () {
+      userHttp
+        .changeInfoStatus(this.$store.state.userInfo.id)
+        .then(() => {
+          let cur = this.$store.state.userInfo
+          cur.hasNewInfos = false;
+          sessionStorage.setItem('userInfo', JSON.stringify(cur))
+          this.saveUserInfo(cur);
+          this.saveInfo(false)
+          sessionStorage.setItem('info', false)
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
   mounted () {
     this.getInfos()
+    this.changeInfoStatus()
   }
 }
 </script>

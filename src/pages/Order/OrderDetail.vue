@@ -5,7 +5,7 @@
       <div class="orderStatus">
         <div class="status">
           <div>{{$t("sapc.order.orderStatus")}}</div>
-          <div :style="{color:data.status==8 ? 'gray' : 'green'}"> {{orderStatus[data.status]}}</div>
+          <div :style="{color:data.status==8||data.status==9 ? 'gray' : 'green'}"> {{orderStatus[data.status]}}</div>
         </div>
         <div class="statusTime">
           <div>{{$t("sapc.order.latestOrderTime")}}</div>

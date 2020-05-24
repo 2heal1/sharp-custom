@@ -58,7 +58,7 @@ export default {
         },
         {
           title: '交易取消',
-          status: 8
+          status: 9
         },
       ],
       orderList: [],

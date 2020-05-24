@@ -99,6 +99,8 @@ router.beforeEach((to, from, next) => {
   if (!Object.keys(store.state.userInfo).length) {
     sessionStorage.getItem("token") &&
       store.commit("saveToken", sessionStorage.getItem("token"));
+    sessionStorage.getItem("info") &&
+      store.commit("saveInfo", sessionStorage.getItem("info"));
     sessionStorage.getItem("userInfo") &&
       store.commit(
         "saveUserInfo",

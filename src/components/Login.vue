@@ -102,7 +102,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["saveToken", "saveUserInfo", 'saveLanguage']),
+    ...mapMutations(["saveToken", "saveUserInfo", 'saveLanguage', 'saveInfo']),
     onFailed (errorInfo) {
       console.log("failed", errorInfo);
     },
@@ -134,6 +134,8 @@ export default {
           if (res && res.data.success) {
             sessionStorage.setItem('token', res.data.token)
             sessionStorage.setItem('userInfo', JSON.stringify(res.data))
+            this.saveInfo(res.data.hasNewInfos)
+            sessionStorage.setItem('info', res.data.hasNewInfos)
             this.saveToken(res.data.token);
             this.saveUserInfo(res.data);
             this.$toast({
@@ -168,6 +170,9 @@ export default {
 <style lang="less" scoped>
 .loginItem {
   width: 100%;
+  /deep/.van-overlay {
+    background-color: rgba(249, 249, 249, 0.7);
+  }
   .btn {
     display: flex;
     justify-content: center;

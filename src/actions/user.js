@@ -110,6 +110,19 @@ function getInfos(id) {
   return http.get("/api/users/getInfos/" + id);
 }
 
+/**
+ * javascript comment
+ * @Author: zhanghang
+ * @Date: 2020-05-24 14:50:02
+ * @Desc: 改变消息状态
+ */
+function changeInfoStatus(id) {
+  return http.get("/api/users/changeInfoStatus/" + id);
+}
+
+function getInfostatus(id) {
+  return http.get("/api/users/getInfostatus/" + id);
+}
 export default {
   addAddress,
   editAddress,
@@ -119,4 +132,6 @@ export default {
   getUserInfo,
   collectProduct,
   getInfos,
+  changeInfoStatus,
+  getInfostatus,
 };

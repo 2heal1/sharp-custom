@@ -6,6 +6,7 @@ export default new Vuex.Store({
     keepAlivePage: ["home"],
     selectedAddress: "",
     language: "zh_CN",
+    hasNewInfos: false,
     token: "",
     // token:
     //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTgyNjY5MTU5NzgiLCJpYXQiOjE1ODY5NDYxNTIsImV4cCI6MTU4Njk1MjE1Mn0.C28alvWNkJnk_bjfftTWoY-3hdttldp0EDKsDoryRYc",
@@ -32,6 +33,9 @@ export default new Vuex.Store({
      */
     saveToken(state, token) {
       state.token = token;
+    },
+    saveInfo(state, data) {
+      state.hasNewInfos = data;
     },
     saveUserInfo(state, data) {
       state.userInfo = data;
